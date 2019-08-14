@@ -1,0 +1,32 @@
+{
+  "name": "pizza-rut-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src",
+  "scripts": {
+    "dev": "nodemon",
+    "production": "pm2 start src --name my-money-backend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.5",
+    "express": "^4.14.0",
+    "express-query-int": "^1.0.1",
+    "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.7.0",
+    "mongoose-paginate": "^5.0.3",
+    "node-restful": "^0.2.5",
+    "pm2": "^2.1.5"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "nodemon": "^1.11.0"
+  }
+}
