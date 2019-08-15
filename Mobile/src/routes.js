@@ -33,14 +33,24 @@ const AuthStack = createStackNavigator(
   },
 );
 
+const Type = createStackNavigator(
+  {
+    SelectType
+  },
+  {
+    headerMode: 'none',
+  },
+);
+
 const Routes = createAppContainer(
   createSwitchNavigator(
     {
       App: AppStack,
       Auth: AuthStack,
+      Type
     },
     {
-      initialRouteName: 'Auth',
+      initialRouteName: 'Type',
     },
   ),
 );

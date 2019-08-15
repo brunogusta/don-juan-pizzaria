@@ -25,7 +25,6 @@ export const Container = styled.View`
 
 export const Form = styled.View``;
 
-
 export const Input = styled.TextInput.attrs({
   placeholderTextColor: colors.regular,
 })`
