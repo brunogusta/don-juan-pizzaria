@@ -46,16 +46,25 @@ export const ItemBox = styled.View.attrs({
   border-radius: 5px;
   margin:0 5px;
   padding: 15px;
-  justify-content: space-between;
   margin-bottom: 15px;
 `;
+
 
 export const ItemBoxHeader = styled.View`
   flex-direction: row;
   justify-content: flex-end;
+  height: 27px;
+`
+export const PizzaImage = styled.Image`
+  height: 120px;
+  width: 120px;
+  align-self: center;
 `
 export const ItemText = styled.Text`
-  color: black;
+  font-family: Helvetica;
+  color:#0b2031;
+  font-weight:bold;
+  font-size: 16px;
   align-self: center;
 `
 
@@ -64,5 +73,21 @@ export const SelectButton = styled.TouchableNativeFeedback`
 
 export const ReturnButton = styled.TouchableOpacity`
   flex-direction: row;
-  align-items: center;
+`
+
+export const MoreDetailsBox = styled.View`
+  flex-direction: row;
+  margin-top: 20px;
+  justify-content: center;
+`
+
+export const Title =styled.View`
+  flex-direction: row;
+  justify-content: center;
+`
+
+export const DetailButton = styled.TouchableOpacity`
+  flex-direction: row;
+  position: absolute;
+  left: 130px;
 `

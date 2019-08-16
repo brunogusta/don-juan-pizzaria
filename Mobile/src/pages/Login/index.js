@@ -35,9 +35,8 @@ const Login = props => {
     errorMessage: ""
   });
 
-  console.log(useLoginForm.spin);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const hadleSubmitValues = values => {
     const data = {
       email: values.email,
@@ -72,14 +71,7 @@ const Login = props => {
     if (useLoginForm.success) {
       props.navigation.navigate("Menu");
     }
-  }, [
-    dispatch,
-    error,
-    props.navigation,
-    useLoginForm.success,
-    userLogin.error,
-    userLogin.success
-  ]);
+  }, [userLogin.success || userLogin.error]);
 
   return (
     <ImageBackground source={BackgroundImage}>

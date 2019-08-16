@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -15,25 +15,68 @@ import {
   PageHeader,
   PageHeaderText,
   ReturnButton,
-  ItemBoxHeader
+  ItemBoxHeader,
+  PizzaImage,
+  MoreDetailsBox,
+  DetailButton,
+  Title
 } from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
-
+import Pizza from '../../assets/images/pizzas/1.png'
 
 const SelectSize = ({ navigation }) => {
 const [useEvents, setEvents] = useState({
+  info: false,
   selected:false,
-  keys:[]
+  keys:[],
+  keysInfo :[]
 })
 
 
 const setSelected = (key) => {
+  const isSeted = useEvents.keys.find(keyItem => keyItem === key)
+
+
+  if(useEvents.selected && isSeted) {
+    const filtered = useEvents.keys.filter(key => key !== isSeted)
+
+    setEvents({
+      ...useEvents,
+      selected: true,
+      keys: filtered
+    })
+    return
+  }
   setEvents({
+    ...useEvents,
     selected: true,
     keys: [...useEvents.keys, key]
   })
 }
+
+const changeInfo = (key) => {
+  const isSeted = useEvents.keysInfo.find(keyItem => keyItem === key)
+
+
+  if(useEvents.selected && isSeted) {
+    const filtered = useEvents.keysInfo.filter(key => key !== isSeted)
+
+    setEvents({
+      ...useEvents,
+      info: true,
+      keysInfo: filtered
+    })
+    return
+  }
+  setEvents({
+    ...useEvents,
+    info: true,
+    keysInfo: [...useEvents.keysInfo, key]
+  })
+}
+
+
 
 return (
   <Container>
@@ -47,7 +90,7 @@ return (
     <FlatListHeight>
         <FlatList
         data={[
-          {key:'Devin'},
+          {key:'Calabresa'},
           {key:'mark'},
           {key:'devan'},
           {key:'batata'},
@@ -60,9 +103,22 @@ return (
           <SelectButton onPress={() => setSelected(item.key)}>
           <ItemBox>
               <ItemBoxHeader>
-                {useEvents.selected && item.key === useEvents.keys ? <Icon name='checkbox-marked-circle' size={27} color={'#06E206'} /> : null}
+                {useEvents.selected && useEvents.keys.find(keyItem => keyItem === item.key ) ?
+                <Icon name='checkbox-marked-circle' size={27} color={'#06E206'} /> : null}
               </ItemBoxHeader>
-              <ItemText>{item.key}</ItemText>
+              <PizzaImage source={Pizza}/>
+              <MoreDetailsBox>
+                <Title>
+                  <ItemText>{item.key}</ItemText>
+                </Title>
+                <DetailButton onPress={() => changeInfo(item.key)}>
+                  {useEvents.info && useEvents.keysInfo.find(keyItem => keyItem === item.key)
+                    ?
+                    <Icon name='information' color={'#E5293E'} size={25} />
+                    :
+                    <Icon name='information-outline' color={'#E5293E'} size={25} />}
+                </DetailButton>
+              </MoreDetailsBox>
             </ItemBox>
           </SelectButton>
         )}
