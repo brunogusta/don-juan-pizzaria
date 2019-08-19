@@ -94,15 +94,17 @@ export const DetailButton = styled.TouchableOpacity.attrs({
   left: 130px;
 `;
 
-export const CloseModalBtn = styled.TouchableOpacity`
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  z-index: 30;
-  left: 100px;
+// ANIMATION
+
+export const ContentDetail = styled.View`
+  flex-direction: row;
 `;
 
-export const CloseModalBtnText = styled.Text`
+export const CloseBtn = styled.TouchableOpacity`
+  background: #ccc;
+`;
+
+
+export const CloseBtnText = styled.Text`
   color: #000;
-  font-size: 30;
 `;

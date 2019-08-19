@@ -18,10 +18,7 @@ import {
   ItemBoxHeader,
   PizzaImage,
   MoreDetailsBox,
-  DetailButton,
   Title,
-  CloseModalBtn,
-  CloseModalBtnText,
 } from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
@@ -30,23 +27,45 @@ import DetailsModal from '../../utils/Animations/pizzaDetails';
 
 const SelectSize = ({ navigation }) => {
   const [events, useEvents] = useState({
-    isModalVisible: false,
     keys: [],
-    keysInfo: [],
     pizzaData: [
       {
+        title: 'A famosa calabresoca',
         key: 'Calabresa',
         details: 'Calabresa picada, Mussarela, Azeitona',
       },
-      { key: 'mark' },
-      { key: 'devan' },
-      { key: 'batata' },
-      { key: 'repolho' },
-      { key: 'teste' },
-      { key: 'arroz' },
-      { key: 'feijão' },
+      {
+        key: 'Frango',
+        details: 'Frango picado , Mussarela, Azeitona',
+      },
+      {
+        key: 'Chocolate',
+        details: 'Chocolate derretido, Mussarela, Azeitona',
+      },
+      {
+        key: 'Palmito',
+        details: 'Palmito picado, Mussarela, Azeitona',
+      },
+      {
+        key: 'Palmito',
+        details: 'Palmito picado, Mussarela, Azeitona',
+      },
+      {
+        key: 'Palmito',
+        details: 'Palmito picado, Mussarela, Azeitona',
+      },
+      {
+        key: 'Palmito',
+        details: 'Palmito picado, Mussarela, Azeitona',
+      },
+      {
+        key: 'Palmito',
+        details: 'Palmito picado, Mussarela, Azeitona',
+      },
+
     ],
     data: {},
+    onClose: '',
   });
 
 
@@ -69,28 +88,6 @@ const SelectSize = ({ navigation }) => {
     }
   };
 
-  // Controle de showInfo com o modal das pizzas.
-  const changeInfo = (data) => {
-    const isSeted = events.keysInfo.find(keyItem => keyItem === data.key);
-    if (isSeted) {
-      const filtered = events.keysInfo.filter(item => item !== isSeted);
-
-      useEvents({
-        ...events,
-        isModalVisible: false,
-        keysInfo: filtered,
-      });
-    } else {
-      useEvents({
-        ...events,
-        isModalVisible: true,
-        data,
-        keysInfo: [...events.keysInfo, data.key],
-      });
-    }
-  };
-
-
   return (
     <Container>
       <BackgroundImage source={HeaderImage} />
@@ -106,9 +103,6 @@ const SelectSize = ({ navigation }) => {
           renderItem={({ item }) => (
             <SelectButton onPress={() => setSelected(item.key)}>
               <ItemBox>
-                <CloseModalBtn>
-                  <CloseModalBtnText>X</CloseModalBtnText>
-                </CloseModalBtn>
                 <ItemBoxHeader>
                   {events.keys.find(keyItem => keyItem === item.key)
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
@@ -118,20 +112,8 @@ const SelectSize = ({ navigation }) => {
                   <Title>
                     <ItemText>{item.key}</ItemText>
                   </Title>
-                  <DetailButton onPress={() => changeInfo(item)}>
-                    {events.keysInfo.find(keyItem => keyItem === item.key)
-                      ? <Icon name="information" color="#E5293E" size={25} />
-                      : <Icon name="information-outline" color="#E5293E" size={25} />}
-                  </DetailButton>
+                  <DetailsModal  value ={item}/>
                 </MoreDetailsBox>
-                {events.keysInfo.find(keyItem => keyItem === item.key)
-                && (
-                <DetailsModal
-                  isVisible={events.isModalVisible}
-                  detailData={events.data}
-                  changeInfoIcon={changeInfo}
-                />
-                )}
               </ItemBox>
             </SelectButton>
           )}

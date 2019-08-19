@@ -1,27 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {
   Animated,
   Easing,
   StyleSheet,
 } from 'react-native';
 
-import { ContentDetail, CloseBtn, CloseBtnText } from './styles';
+import { InfoButton, CloseBtn, CloseBtnText } from './styles';
 
-const DetailsModal = ({ detailData, isVisible, changeInfoIcon }) => {
+const DetailsModal = ({ value }) => {
   const [animation, useAnimation] = useState({
     modalYtranslate: new Animated.Value(0),
     opacityDetail: new Animated.Value(0),
-    showAnimation: false,
-    data: [],
+    showAnimated: false,
   });
-
-  useEffect(() => {
-    useAnimation({
-      ...animation,
-      showAnimation: true,
-    });
-  }, []);
 
 
   const detailsTextOpacity = animation.opacityDetail.interpolate({
@@ -36,7 +30,12 @@ const DetailsModal = ({ detailData, isVisible, changeInfoIcon }) => {
 
   const translateStyle = { transform: [{ translateY: modalMoveY }] };
 
-  if (isVisible) {
+  const startAnimation = () => {
+    useAnimation({
+      ...animation,
+      showAnimated: true,
+    });
+
     Animated.sequence([
       Animated.timing(animation.modalYtranslate, {
         toValue: 1,
@@ -51,27 +50,18 @@ const DetailsModal = ({ detailData, isVisible, changeInfoIcon }) => {
         useNativeDriver: true,
       }),
     ]).start();
-  }
-
-
-  const handlerEvents = () => {
-    useAnimation({
-      ...animation,
-      showAnimation: false,
-    });
-
-    changeInfoIcon(detailData);
-
-    console.log(animation.data);
   };
 
-  const closeAnimation = () => {
+  const closeModal = () => {
     Animated.timing(animation.modalYtranslate, {
       toValue: 0,
       duration: 1000,
       easing: Easing.linear,
       useNativeDriver: true,
-    }).start(() => handlerEvents());
+    }).start(() => useAnimation({
+      ...animation,
+      showAnimated: false,
+    }));
   };
 
 
@@ -80,41 +70,54 @@ const DetailsModal = ({ detailData, isVisible, changeInfoIcon }) => {
       position: 'absolute',
       width: 180,
       height: 220,
-      bottom: -220,
+      bottom: -250,
       borderRadius: 5,
       backgroundColor: '#fff',
       zIndex: 20,
     },
-    detailText: {
+    title: {
       color: '#000',
       fontSize: 20,
-      zIndex: 20,
+    },
+    text: {
+      color: '#000',
+      fontSize: 14,
+
     },
   });
 
+
   return (
     <>
-      {animation.showAnimation
-         && (
-         <Animated.View style={[
-           styles.box,
-           translateStyle,
-         ]}
-         >
-           <ContentDetail>
-             <Animated.Text style={[
-               styles.detailText,
-               { opacity: detailsTextOpacity }]}
-             >
-          Hello
-             </Animated.Text>
-             <CloseBtn onPress={closeAnimation}>
-               <CloseBtnText>Close</CloseBtnText>
-             </CloseBtn>
-           </ContentDetail>
-         </Animated.View>
-         )
-    }
+      {animation.showAnimated
+      && (
+      <Animated.View style={[
+        styles.box,
+        translateStyle,
+      ]}
+      >
+        <CloseBtn onPress={closeModal}>
+          <CloseBtnText><Icon name="close-circle" color="#E5293E" size={25} /></CloseBtnText>
+        </CloseBtn>
+
+        <Animated.Text style={[
+          styles.text,
+          { opacity: detailsTextOpacity }]}
+        >
+          {value.title}
+        </Animated.Text>
+        <Animated.Text style={[
+          styles.text,
+          { opacity: detailsTextOpacity }]}
+        >
+          {value.details}
+        </Animated.Text>
+      </Animated.View>
+      )
+      }
+      <InfoButton onPress={startAnimation}>
+        <Icon name="information" color="#E5293E" size={25} />
+      </InfoButton>
     </>
   );
 };
