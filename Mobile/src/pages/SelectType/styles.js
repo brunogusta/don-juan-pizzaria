@@ -7,6 +7,7 @@ export const Container = styled.View`
 
 export const PageHeader = styled.View`
   flex-direction: row;
+  justify-content: space-between;
   z-index: 1;
   padding: 20px;
   align-items: center;
@@ -14,12 +15,16 @@ export const PageHeader = styled.View`
 export const PageHeaderText = styled.Text`
   color: #fff;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
   `;
+
+export const CompleteOrderButton = styled.TouchableOpacity`
+  flex-direction: row;
+`;
 
 export const BackgroundImage = styled.Image`
   position:absolute;
-  height: 190px;
+  height: 30%;
   width: 100%;
 `;
 

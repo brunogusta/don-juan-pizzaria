@@ -35,7 +35,7 @@ const AuthStack = createStackNavigator(
 
 const Type = createStackNavigator(
   {
-    SelectType
+    CheckOrder,
   },
   {
     headerMode: 'none',
@@ -47,7 +47,7 @@ const Routes = createAppContainer(
     {
       App: AppStack,
       Auth: AuthStack,
-      Type
+      Type,
     },
     {
       initialRouteName: 'Type',

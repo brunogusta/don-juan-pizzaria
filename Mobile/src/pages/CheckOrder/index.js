@@ -1,9 +1,18 @@
 import React from 'react';
 
-import { View } from 'react-native';
+import {
+  Container,
+  BackgroundImage,
+}
+  from './styles';
 
-// import { Container } from './styles';
+import HeaderImage from '../../assets/images/header-background2x.png';
 
-const CheckOrder = () => <View />;
+
+const CheckOrder = () => (
+  <Container>
+    <BackgroundImage source={HeaderImage} />
+  </Container>
+);
 
 export default CheckOrder;

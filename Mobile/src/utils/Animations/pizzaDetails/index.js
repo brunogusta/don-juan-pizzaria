@@ -6,21 +6,28 @@ import {
   Animated,
   Easing,
   StyleSheet,
+  FlatList,
 } from 'react-native';
 
-import { InfoButton, CloseBtn, CloseBtnText } from './styles';
+import {
+  InfoButton, CloseBtn, CloseBtnText, DetailsText, Arrow, ContainerList,
+} from './styles';
+
+import OvenLogo from '../../../assets/images/pizzas/oven.png';
+import PizzaArrow from '../../../assets/images/pizzas/pizzaArrow.png';
 
 const DetailsModal = ({ value }) => {
   const [animation, useAnimation] = useState({
     modalYtranslate: new Animated.Value(0),
     opacityDetail: new Animated.Value(0),
     showAnimated: false,
+    info: false,
   });
 
 
   const detailsTextOpacity = animation.opacityDetail.interpolate({
-    inputRange: [0, 0.25, 0.5, 0.75, 1],
-    outputRange: [0, 0.25, 0.5, 0.75, 1],
+    inputRange: [0.5, 0.75, 1],
+    outputRange: [0.5, 0.75, 1],
   });
 
   const modalMoveY = animation.modalYtranslate.interpolate({
@@ -33,19 +40,19 @@ const DetailsModal = ({ value }) => {
   const startAnimation = () => {
     useAnimation({
       ...animation,
+      info: true,
       showAnimated: true,
     });
 
     Animated.sequence([
-      Animated.timing(animation.modalYtranslate, {
+      Animated.spring(animation.modalYtranslate, {
         toValue: 1,
-        duration: 1000,
-        easing: Easing.linear,
+        friction: 6,
         useNativeDriver: true,
       }),
       Animated.timing(animation.opacityDetail, {
         toValue: 1,
-        duration: 1000,
+        duration: 600,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
@@ -55,11 +62,12 @@ const DetailsModal = ({ value }) => {
   const closeModal = () => {
     Animated.timing(animation.modalYtranslate, {
       toValue: 0,
-      duration: 1000,
+      duration: 300,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start(() => useAnimation({
       ...animation,
+      info: false,
       showAnimated: false,
     }));
   };
@@ -69,20 +77,17 @@ const DetailsModal = ({ value }) => {
     box: {
       position: 'absolute',
       width: 180,
-      height: 220,
-      bottom: -250,
+      height: 221,
+      bottom: -252,
       borderRadius: 5,
-      backgroundColor: '#fff',
+      backgroundColor: '#E37a7a',
       zIndex: 20,
     },
-    title: {
-      color: '#000',
-      fontSize: 20,
-    },
-    text: {
-      color: '#000',
-      fontSize: 14,
-
+    ovenLogo: {
+      marginTop: 30,
+      height: 40,
+      width: 40,
+      alignSelf: 'center',
     },
   });
 
@@ -97,26 +102,35 @@ const DetailsModal = ({ value }) => {
       ]}
       >
         <CloseBtn onPress={closeModal}>
-          <CloseBtnText><Icon name="close-circle" color="#E5293E" size={25} /></CloseBtnText>
+          <CloseBtnText><Icon name="close-circle" color="#EEE" size={25} /></CloseBtnText>
         </CloseBtn>
-
-        <Animated.Text style={[
-          styles.text,
+        <Animated.Image
+          source={OvenLogo}
+          style={[styles.ovenLogo,
+            { opacity: detailsTextOpacity }]}
+        />
+        <Animated.View style={[
           { opacity: detailsTextOpacity }]}
         >
-          {value.title}
-        </Animated.Text>
-        <Animated.Text style={[
-          styles.text,
-          { opacity: detailsTextOpacity }]}
-        >
-          {value.details}
-        </Animated.Text>
+          <ContainerList>
+            <FlatList
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{ flex: 1 }}
+              data={value.details}
+              renderItem={({ item, index }) => (
+                <DetailsText key={index}>
+                  <Arrow source={PizzaArrow} /> {item.key}
+                </DetailsText>
+              )}
+              listKey={(item, index) => `D${index.toString()}`}
+            />
+          </ContainerList>
+        </Animated.View>
       </Animated.View>
       )
       }
       <InfoButton onPress={startAnimation}>
-        <Icon name="information" color="#E5293E" size={25} />
+        {animation.info ? <Icon name="information" color="#E5293E" size={25} /> : <Icon name="information-outline" color="#E5293E" size={25} />}
       </InfoButton>
     </>
   );
@@ -125,6 +139,10 @@ const DetailsModal = ({ value }) => {
 
 export default DetailsModal;
 
-DetailsModal.prototypes = {
-  onSpin: PropTypes.bool.isRequired,
+DetailsModal.propTypes = {
+  value: PropTypes.shape({
+    details: PropTypes.arrayOf(PropTypes.shape({
+      key: PropTypes.string,
+    })),
+  }).isRequired,
 };
