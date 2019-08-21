@@ -105,7 +105,7 @@ const SelectSize = ({ navigation }) => {
         </ReturnButton>
         {events.keys.length !== 0
           ? (
-            <CompleteOrderButton>
+            <CompleteOrderButton onPress={() => navigation.navigate('CheckOrder')}>
               <PageHeaderText>Finalizar Pedido</PageHeaderText>
               <IconMaterial name="keyboard-arrow-right" size={27} color="#fff" />
             </CompleteOrderButton>
