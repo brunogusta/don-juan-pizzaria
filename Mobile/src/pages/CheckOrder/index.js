@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import {debounce} from 'debounce'
 
 import {
   Container,
@@ -24,18 +25,53 @@ import {
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 
+import cepApi from '../../services/cep';
 
 const CheckOrder = ({ navigation }) => {
-  const [events, useEvents] = useState({
+  const [getAdress, useGetAdress] = useState({
+    logradouro: '',
+    bairro: '',
+    error: '',
+  });
+
+  const [cepInput, useCepInput] = useState({
+    cep: '',
   });
 
   const handleSubmitValues = (values) => {
     console.log(values);
   };
 
-  const onSizeChange = ({ nativeEvent: event }) => {
-    useEvents({ textareaHeight: event.contentSize.height });
+  const setAdrees = (data) => {
+    useGetAdress({
+       ...getAdress,
+       logradouro: data.logradouro,
+       bairro: data.bairro,
+       error: data,
+     });
   };
+
+const  validateCep = (text) => {
+   useCepInput({
+    ...cepInput,
+    cep: text
+  });
+
+  if(text === ''){
+    useGetAdress({
+      logradouro: '',
+      bairro: '',
+      error: '',
+    });
+  }
+
+  const validacep = /^[0-8]{8}$/;
+  if (validacep.test(text)) {
+    debounce(cepApi.get(`/${text}/json/`).then(({data}) => setAdrees(data)), 500)
+  }
+}
+
+
   return (
     <Container>
       <BackgroundImage source={HeaderImage} />
@@ -44,12 +80,11 @@ const CheckOrder = ({ navigation }) => {
           <Icon name="keyboard-arrow-left" size={27} color="#fff" />
           <PageHeaderText>Finalizar o Pedido</PageHeaderText>
         </ReturnButton>
-        <PageHeaderText>R$107,00</PageHeaderText>
       </PageHeader>
       <FormContainer>
         <Formik
           initialValues={{
-            note: '', cep: '', street: '', number: '', neighborhood: '',
+            note: '', cep: '', number: '',
           }}
           onSubmit={values => handleSubmitValues(values)}
           validationSchema={yup.object().shape({
@@ -58,14 +93,9 @@ const CheckOrder = ({ navigation }) => {
             cep: yup
               .number()
               .required('O CEP é obrigatório.'),
-            street: yup
-              .string(),
             number: yup
               .number()
               .required('O número é obrigatório'),
-            neighborhood: yup
-              .string()
-              .required('O bairro é obrigatório'),
           })}
         >
           {({
@@ -84,22 +114,21 @@ const CheckOrder = ({ navigation }) => {
                 value={values.note}
                 multiline
                 onChangeText={handleChange('note')}
-                onContentSizeChange={onSizeChange}
               />
               <CepInput
                 placeholder="Qual seu CEP?"
-                onBlur={() => setFieldTouched('cep')}
-                value={values.cep}
+                value={cepInput.cep}
                 keyboardType="number-pad"
-                maxLength={5}
-                onChangeText={handleChange('cep')}
+                maxLength={8}
+                onChangeText={(text) => validateCep(text)}
               />
               <StreetLine>
                 <StreetInput
                   placeholder="Rua"
                   onBlur={() => setFieldTouched('street')}
-                  value={values.street}
-                  onChangeText={handleChange('street')}
+                  value={getAdress.logradouro}
+                  editable={false}
+                  multiline
                 />
                 <NumberInput
                   placeholder="Nº"
@@ -112,7 +141,8 @@ const CheckOrder = ({ navigation }) => {
               <NeighborhoodInput
                 placeholder="Bairro"
                 onBlur={() => setFieldTouched('neighborhood')}
-                value={values.neighborhood}
+                value={getAdress.bairro}
+                editable={false}
                 onChangeText={handleChange('neighborhood')}
               />
               <FinalizeBtn>

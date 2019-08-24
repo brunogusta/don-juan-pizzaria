@@ -31,7 +31,7 @@ import Calzones from '../../assets/images/calzones.webp';
 const Menu = ({ navigation }) => (
   <ImageBackground source={HeaderImage}>
     <Header>
-      <HistoryBtn>
+      <HistoryBtn onPress={() => navigation.navigate('OrderHistory')}>
         <Icon name="history" size={30} color="#fff" />
       </HistoryBtn>
       <TextHeader>Pizza Hut</TextHeader>
