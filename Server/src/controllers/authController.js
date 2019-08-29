@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/user');
+const User = require('../models/userSchema');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const env = require('../.env');
@@ -21,7 +21,7 @@ router.post('/register', async (req, res) => {
     }
 
     const user = await User.create(req.body);
-    console.log(req.body)
+    console.log(req.body);
     user.password = undefined;
 
     return res.send({

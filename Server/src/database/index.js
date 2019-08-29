@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/testeauth', {
+mongoose.connect('mongodb://localhost/pizzahut', {
   useMongoClient: true
 });
 
