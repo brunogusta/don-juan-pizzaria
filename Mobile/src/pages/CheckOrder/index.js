@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
-import {debounce} from 'debounce'
+import { debounce } from 'debounce';
 
 import {
   Container,
@@ -44,32 +44,32 @@ const CheckOrder = ({ navigation }) => {
 
   const setAdrees = (data) => {
     useGetAdress({
-       ...getAdress,
-       logradouro: data.logradouro,
-       bairro: data.bairro,
-       error: data,
-     });
+      ...getAdress,
+      logradouro: data.logradouro,
+      bairro: data.bairro,
+      error: data,
+    });
   };
 
-const  validateCep = (text) => {
-   useCepInput({
-    ...cepInput,
-    cep: text
-  });
-
-  if(text === ''){
-    useGetAdress({
-      logradouro: '',
-      bairro: '',
-      error: '',
+  const validateCep = (text) => {
+    useCepInput({
+      ...cepInput,
+      cep: text,
     });
-  }
 
-  const validacep = /^[0-8]{8}$/;
-  if (validacep.test(text)) {
-    debounce(cepApi.get(`/${text}/json/`).then(({data}) => setAdrees(data)), 500)
-  }
-}
+    if (text === '') {
+      useGetAdress({
+        logradouro: '',
+        bairro: '',
+        error: '',
+      });
+    }
+
+    const validacep = /^[0-8]{8}$/;
+    if (validacep.test(text)) {
+      debounce(cepApi.get(`/${text}/json/`).then(({ data }) => setAdrees(data)), 500);
+    }
+  };
 
 
   return (
@@ -120,7 +120,7 @@ const  validateCep = (text) => {
                 value={cepInput.cep}
                 keyboardType="number-pad"
                 maxLength={8}
-                onChangeText={(text) => validateCep(text)}
+                onChangeText={text => validateCep(text)}
               />
               <StreetLine>
                 <StreetInput

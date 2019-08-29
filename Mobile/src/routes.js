@@ -35,7 +35,7 @@ const AuthStack = createStackNavigator(
 
 const Type = createStackNavigator(
   {
-    CheckOrder,
+    SelectSize,
   },
   {
     headerMode: 'none',

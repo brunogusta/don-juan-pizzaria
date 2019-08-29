@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -23,58 +23,44 @@ import {
 } from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
-import Pizza from '../../assets/images/pizzas/1.png';
 import DetailsModal from '../../utils/Animations/pizzaDetails';
+
+import api from '../../services/api';
 
 const SelectSize = ({ navigation }) => {
   const [events, useEvents] = useState({
     keys: [],
-    pizzaData: [
-      {
-        title: 'Ingredientes:',
-        key: 'Baiana',
-        details: [{ key: 'Mussarela' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Catupiry' }, { key: 'Cebola' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Aliche',
-        details: [{ key: 'Filés de aliche importado' }, { key: 'Calabresaa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Alho e Óleo',
-        details: [{ key: 'Molho de tomate fresco' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Ao Funghi',
-        details: [{ key: 'Presunto cozido picado' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Atum',
-        details: [{ key: 'Azeitona' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Bauru',
-        details: [{ key: 'Cobertura de catupiry' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Caipira',
-        details: [{ key: 'Azeitona Preta' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-      {
-        title: 'A famosa calabresoca',
-        key: 'Calabresa',
-        details: [{ key: 'Cebola' }, { key: 'Calabresa' }, { key: 'Ovos' }, { key: 'Molho de pimenta' }],
-      },
-    ],
-    data: {},
-    onClose: '',
+    pizzaData: [],
   });
 
+
+  async function loadPizzas() {
+    const response = await api.get('/register').catch(err => console.log(err));
+    console.log(response);
+
+    const pizzas = response.data.map((item) => {
+      const content = {
+        title: item.title,
+        key: item.key,
+        details: item.details.map((value) => {
+          const ingredients = { key: value };
+          return ingredients;
+        }),
+        image: item.image,
+      };
+      return content;
+    });
+
+
+    useEvents({
+      ...events,
+      pizzaData: pizzas,
+    });
+  }
+
+  useEffect(() => {
+    loadPizzas();
+  }, []);
 
   // Controle de select das pizzas.
   const setSelected = (key) => {
@@ -122,7 +108,10 @@ const SelectSize = ({ navigation }) => {
                   {events.keys.find(keyItem => keyItem === item.key)
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
                 </ItemBoxHeader>
-                <PizzaImage source={Pizza} />
+                <PizzaImage source={{
+                  uri: `http://10.10.10.4:3002/files/${item.image}`,
+                }}
+                />
                 <MoreDetailsBox>
                   <Title>
                     <ItemText>{item.key}</ItemText>

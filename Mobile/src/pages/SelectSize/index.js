@@ -1,82 +1,123 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React, { useState, useEffect } from 'react';
+import { FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+
+
 import {
   Container,
   ImageBackground,
   Header,
   TextHeader,
   BackBtn,
-  SizeRow,
-  SizeItem,
-  Image,
-  SizeText,
-  SizePrice,
-  SizeContainer,
-  Footer,
+  FlatListHeight,
+  SizeItemHeader,
   SyzeBtn,
+  SizePrice,
+  SizeText,
+  Image,
+  SizeItem,
 } from './styles';
 
-import HeaderImage from '../../assets/images/header-background2x.png';
-import Gigante from '../../assets/images/gigante.png';
-import Grande from '../../assets/images/grande.png';
-import Media from '../../assets/images/media.png';
-import Pequena from '../../assets/images/pequena.png';
 
-const SelectSize = ({ navigation }) => (
-  <ImageBackground source={HeaderImage}>
+import HeaderImage from '../../assets/images/header-background2x.png';
+
+import api from '../../services/api';
+
+
+const SelectSize = ({ navigation }) => {
+  const [sizes, useSizes] = useState({
+    keys: [],
+    sizeData: [],
+  });
+
+
+  async function loadSizes() {
+    const response = await api.get('/register/sizes').catch(err => console.log(err));
+    console.log(response);
+
+    const size = response.data.map((item) => {
+      const content = {
+        name: item.name,
+        image: item.image,
+        cost: item.cost,
+      };
+      return content;
+    });
+
+
+    useSizes({
+      ...sizes,
+      sizeData: size,
+    });
+  }
+
+
+  useEffect(() => {
+    loadSizes();
+  }, []);
+
+
+  const setSelected = (key) => {
+    const isSeted = sizes.keys.find(keyItem => keyItem === key);
+
+    if (isSeted) {
+      const filtered = sizes.keys.filter(item => item !== isSeted);
+
+      useSizes({
+        ...sizes,
+        keys: filtered,
+      });
+    } else {
+      useSizes({
+        ...sizes,
+        keys: [key],
+      });
+    }
+  };
+
+  return (
     <Container>
+      <ImageBackground source={HeaderImage} />
       <BackBtn onPress={() => navigation.navigate('Menu')}>
         <Header>
-          <Icon name="keyboard-arrow-left" size={27} color="#fff" />
+          <IconMaterial name="keyboard-arrow-left" size={27} color="#fff" />
           <TextHeader>Selecione um tamanho</TextHeader>
         </Header>
       </BackBtn>
-      <SizeContainer>
-        <SizeRow>
-          <SyzeBtn>
-            <SizeItem>
-              <Image source={Gigante} />
-              <Footer>
-                <SizeText>Gigante</SizeText>
-                <SizePrice>R$76,00</SizePrice>
-              </Footer>
-            </SizeItem>
-          </SyzeBtn>
-          <SyzeBtn>
-            <SizeItem>
-              <Image source={Grande} />
-              <Footer>
-                <SizeText>Grande</SizeText>
-                <SizePrice>R$59,00</SizePrice>
-              </Footer>
-            </SizeItem>
-          </SyzeBtn>
-        </SizeRow>
-        <SizeRow>
-          <SyzeBtn>
-            <SizeItem>
-              <Image source={Media} />
-              <Footer>
-                <SizeText>Média</SizeText>
-                <SizePrice>R$42,00</SizePrice>
-              </Footer>
-            </SizeItem>
-          </SyzeBtn>
-          <SyzeBtn>
-            <SizeItem>
-              <Image source={Pequena} />
-              <Footer>
-                <SizeText>Pequena</SizeText>
-                <SizePrice>R$29,00</SizePrice>
-              </Footer>
-            </SizeItem>
-          </SyzeBtn>
-        </SizeRow>
-      </SizeContainer>
+      <FlatListHeight>
+        <FlatList
+          data={sizes.sizeData}
+          renderItem={({ item }) => (
+            <SyzeBtn onPress={() => setSelected(item.name)}>
+              <SizeItem>
+                <SizeItemHeader>
+                  {sizes.keys.find(keyItem => keyItem === item.name)
+                    ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
+                </SizeItemHeader>
+                <Image
+                  size={item.name}
+                  source={{
+                    uri: `http://10.10.10.4:3002/files/${item.image}`,
+                  }}
+                />
+                <SizeText>{item.name}</SizeText>
+                <SizePrice>{item.cost}</SizePrice>
+              </SizeItem>
+            </SyzeBtn>
+          )}
+          keyExtractor={item => item.name.toString()}
+          numColumns={2}
+          // eslint-disable-next-line react-native/no-inline-styles
+          columnWrapperStyle={{ justifyContent: 'center' }}
+
+        />
+      </FlatListHeight>
     </Container>
-  </ImageBackground>
-);
+  );
+};
+
 
 SelectSize.propTypes = {
   navigation: PropTypes.shape({

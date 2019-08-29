@@ -61,15 +61,15 @@ export const ItemBoxHeader = styled.View`
   height: 27px;
 `;
 export const PizzaImage = styled.Image`
-  height: 110px;
-  width: 114px;
+  height: 61%;
+  width: 77%;
   align-self: center;
 `;
 export const ItemText = styled.Text`
   font-family: Helvetica;
   color:#0b2031;
   font-weight:bold;
-  font-size: 16px;
+  font-size: 14px;
   align-self: center;
 `;
 

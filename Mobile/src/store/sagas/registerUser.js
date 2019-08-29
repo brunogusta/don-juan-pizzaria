@@ -11,8 +11,10 @@ export function* registerUserSaga(perfil) {
 
     yield put(RegisterActions.handleRegisterSuccess());
     yield put(RegisterActions.spin());
+
   } catch (err) {
     const { data } = err.response;
+
     yield put(RegisterActions.handleRegisterError(data));
     yield put(RegisterActions.spin());
   }

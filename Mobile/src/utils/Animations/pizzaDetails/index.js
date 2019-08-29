@@ -43,7 +43,6 @@ const DetailsModal = ({ value }) => {
       info: true,
       showAnimated: true,
     });
-
     Animated.sequence([
       Animated.spring(animation.modalYtranslate, {
         toValue: 1,
@@ -78,7 +77,7 @@ const DetailsModal = ({ value }) => {
       position: 'absolute',
       width: 180,
       height: 221,
-      bottom: -252,
+      bottom: -254,
       borderRadius: 5,
       backgroundColor: '#E37a7a',
       zIndex: 20,
@@ -96,37 +95,37 @@ const DetailsModal = ({ value }) => {
     <>
       {animation.showAnimated
       && (
-      <Animated.View style={[
-        styles.box,
-        translateStyle,
-      ]}
-      >
-        <CloseBtn onPress={closeModal}>
-          <CloseBtnText><Icon name="close-circle" color="#EEE" size={25} /></CloseBtnText>
-        </CloseBtn>
-        <Animated.Image
-          source={OvenLogo}
-          style={[styles.ovenLogo,
-            { opacity: detailsTextOpacity }]}
-        />
         <Animated.View style={[
-          { opacity: detailsTextOpacity }]}
+          styles.box,
+          translateStyle,
+        ]}
         >
-          <ContainerList>
-            <FlatList
+          <CloseBtn onPress={closeModal}>
+            <CloseBtnText><Icon name="close-circle" color="#EEE" size={25} /></CloseBtnText>
+          </CloseBtn>
+          <Animated.Image
+            source={OvenLogo}
+            style={[styles.ovenLogo,
+              { opacity: detailsTextOpacity }]}
+          />
+          <Animated.View style={[
+            { opacity: detailsTextOpacity }]}
+          >
+            <ContainerList>
+              <FlatList
               // eslint-disable-next-line react-native/no-inline-styles
-              style={{ flex: 1 }}
-              data={value.details}
-              renderItem={({ item, index }) => (
-                <DetailsText key={index}>
-                  <Arrow source={PizzaArrow} /> {item.key}
-                </DetailsText>
-              )}
-              listKey={(item, index) => `D${index.toString()}`}
-            />
-          </ContainerList>
+                style={{ flex: 1 }}
+                data={value.details}
+                renderItem={({ item, index }) => (
+                  <DetailsText key={index}>
+                    <Arrow source={PizzaArrow} /> {item.key}
+                  </DetailsText>
+                )}
+                listKey={(item, index) => `D${index.toString()}`}
+              />
+            </ContainerList>
+          </Animated.View>
         </Animated.View>
-      </Animated.View>
       )
       }
       <InfoButton onPress={startAnimation}>
