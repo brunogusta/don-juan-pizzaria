@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -24,14 +25,27 @@ import {
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 import DetailsModal from '../../utils/Animations/pizzaDetails';
+import { Types as costActions } from '../../store/ducks/totalValues';
 
 import api from '../../services/api';
 
 const SelectSize = ({ navigation }) => {
   const [events, useEvents] = useState({
     keys: [],
+    costs: [],
     pizzaData: [],
   });
+
+  const dispatch = useDispatch();
+
+  const nextPage = () => {
+    dispatch({
+      type: costActions.TYPE_VALUE,
+      payload: events.costs,
+    });
+
+    navigation.navigate('CheckOrder');
+  };
 
 
   async function loadPizzas() {
@@ -40,8 +54,8 @@ const SelectSize = ({ navigation }) => {
 
     const pizzas = response.data.map((item) => {
       const content = {
-        title: item.title,
         key: item.key,
+        cost: item.value,
         details: item.details.map((value) => {
           const ingredients = { key: value };
           return ingredients;
@@ -50,7 +64,6 @@ const SelectSize = ({ navigation }) => {
       };
       return content;
     });
-
 
     useEvents({
       ...events,
@@ -62,21 +75,30 @@ const SelectSize = ({ navigation }) => {
     loadPizzas();
   }, []);
 
+  useEffect(() => {
+    console.log(events.costs);
+  }, [events.costs]);
+
+
   // Controle de select das pizzas.
-  const setSelected = (key) => {
-    const isSeted = events.keys.find(keyItem => keyItem === key);
+  const setSelected = (item) => {
+    const isSeted = events.keys.find(keyItem => keyItem === item.key);
+    const haveCost = events.costs.find(costItem => costItem === item.cost);
 
     if (isSeted) {
-      const filtered = events.keys.filter(item => item !== isSeted);
+      const filtered = events.keys.filter(card => card !== isSeted);
+      const costSeted = events.costs.filter(card => card !== haveCost);
 
       useEvents({
         ...events,
+        costs: costSeted,
         keys: filtered,
       });
     } else {
       useEvents({
         ...events,
-        keys: [...events.keys, key],
+        costs: [...events.costs, item.cost],
+        keys: [...events.keys, item.key],
       });
     }
   };
@@ -91,7 +113,7 @@ const SelectSize = ({ navigation }) => {
         </ReturnButton>
         {events.keys.length !== 0
           ? (
-            <CompleteOrderButton onPress={() => navigation.navigate('CheckOrder')}>
+            <CompleteOrderButton onPress={nextPage}>
               <PageHeaderText>Finalizar Pedido</PageHeaderText>
               <IconMaterial name="keyboard-arrow-right" size={27} color="#fff" />
             </CompleteOrderButton>
@@ -102,7 +124,7 @@ const SelectSize = ({ navigation }) => {
         <FlatList
           data={events.pizzaData}
           renderItem={({ item }) => (
-            <SelectButton onPress={() => setSelected(item.key)}>
+            <SelectButton onPress={() => setSelected(item)}>
               <ItemBox>
                 <ItemBoxHeader>
                   {events.keys.find(keyItem => keyItem === item.key)

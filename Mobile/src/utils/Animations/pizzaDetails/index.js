@@ -77,7 +77,7 @@ const DetailsModal = ({ value }) => {
       position: 'absolute',
       width: 180,
       height: 221,
-      bottom: -254,
+      bottom: -241,
       borderRadius: 5,
       backgroundColor: '#E37a7a',
       zIndex: 20,

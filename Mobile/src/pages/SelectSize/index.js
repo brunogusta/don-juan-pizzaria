@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -17,6 +18,7 @@ import {
   SizePrice,
   SizeText,
   Image,
+  ImageContainer,
   SizeItem,
 } from './styles';
 
@@ -24,7 +26,7 @@ import {
 import HeaderImage from '../../assets/images/header-background2x.png';
 
 import api from '../../services/api';
-
+import { Types as costActions } from '../../store/ducks/totalValues';
 
 const SelectSize = ({ navigation }) => {
   const [sizes, useSizes] = useState({
@@ -33,6 +35,7 @@ const SelectSize = ({ navigation }) => {
   });
 
 
+  const { totalValues } = useSelector(state => state);
   async function loadSizes() {
     const response = await api.get('/register/sizes').catch(err => console.log(err));
     console.log(response);
@@ -48,7 +51,7 @@ const SelectSize = ({ navigation }) => {
 
 
     useSizes({
-      ...sizes,
+      keys: totalValues.lastSize,
       sizeData: size,
     });
   }
@@ -56,26 +59,32 @@ const SelectSize = ({ navigation }) => {
 
   useEffect(() => {
     loadSizes();
+
+    console.log(sizes.keys);
   }, []);
 
 
-  const setSelected = (key) => {
-    const isSeted = sizes.keys.find(keyItem => keyItem === key);
+  const dispatch = useDispatch();
+  const nextPage = (key) => {
+    dispatch({
+      type: costActions.SIZE_VALUE,
+      payload: key.cost,
+    });
 
-    if (isSeted) {
-      const filtered = sizes.keys.filter(item => item !== isSeted);
+    dispatch({
+      type: costActions.LAST_SIZE,
+      payload: key.name,
+    });
 
-      useSizes({
-        ...sizes,
-        keys: filtered,
-      });
-    } else {
-      useSizes({
-        ...sizes,
-        keys: [key],
-      });
-    }
+    useSizes({
+      ...sizes,
+      cost: key.cost,
+      keys: [key.name],
+    });
+
+    navigation.navigate('SelectType');
   };
+
 
   return (
     <Container>
@@ -90,18 +99,20 @@ const SelectSize = ({ navigation }) => {
         <FlatList
           data={sizes.sizeData}
           renderItem={({ item }) => (
-            <SyzeBtn onPress={() => setSelected(item.name)}>
+            <SyzeBtn onPress={() => nextPage(item)}>
               <SizeItem>
                 <SizeItemHeader>
                   {sizes.keys.find(keyItem => keyItem === item.name)
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
                 </SizeItemHeader>
-                <Image
-                  size={item.name}
-                  source={{
-                    uri: `http://10.10.10.4:3002/files/${item.image}`,
-                  }}
-                />
+                <ImageContainer>
+                  <Image
+                    size={item.name}
+                    source={{
+                      uri: `http://10.10.10.4:3002/files/${item.image}`,
+                    }}
+                  />
+                </ImageContainer>
                 <SizeText>{item.name}</SizeText>
                 <SizePrice>{item.cost}</SizePrice>
               </SizeItem>

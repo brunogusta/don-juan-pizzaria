@@ -52,6 +52,10 @@ export const SizeItem = styled.View.attrs({
   margin-bottom: 15px;
 `;
 
+export const ImageContainer = styled.View`
+  height: 110;
+`;
+
 export const Image = styled.Image`
   align-self: center;
   height:${(props) => {

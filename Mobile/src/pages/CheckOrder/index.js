@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -27,6 +28,8 @@ import HeaderImage from '../../assets/images/header-background2x.png';
 
 import cepApi from '../../services/cep';
 
+import { Types as costActions } from '../../store/ducks/totalValues';
+
 const CheckOrder = ({ navigation }) => {
   const [getAdress, useGetAdress] = useState({
     logradouro: '',
@@ -34,6 +37,47 @@ const CheckOrder = ({ navigation }) => {
     error: '',
   });
 
+
+  const { totalValues } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const [cost, useTotalValue] = useState({
+    totalCost: Number,
+  });
+
+
+  useEffect(() => {
+    const toNumber = totalValues.values.map((value) => {
+      let number = value.replace('.', '');
+
+      number = value.replace(',', '.');
+      number = parseFloat(number);
+
+      return number;
+    });
+
+    const totalValue = toNumber.reduce((num1, num2) => num1 + num2);
+    const fixed = totalValue.toFixed(2);
+
+    const coinTransform = fixed.replace('.', ',');
+
+    useTotalValue({
+      totalCost: coinTransform,
+    });
+  }, []);
+
+
+  const resetTotalValue = () => {
+    const sizeCost = totalValues.values.find(value => value[0]);
+
+    dispatch({
+      type: costActions.TYPE_RESET,
+      payload: sizeCost,
+    });
+
+    console.log(sizeCost);
+
+    navigation.navigate('SelectType');
+  };
   const [cepInput, useCepInput] = useState({
     cep: '',
   });
@@ -76,10 +120,11 @@ const CheckOrder = ({ navigation }) => {
     <Container>
       <BackgroundImage source={HeaderImage} />
       <PageHeader>
-        <ReturnButton onPress={() => navigation.navigate('SelectType')}>
+        <ReturnButton onPress={resetTotalValue}>
           <Icon name="keyboard-arrow-left" size={27} color="#fff" />
           <PageHeaderText>Finalizar o Pedido</PageHeaderText>
         </ReturnButton>
+        <PageHeaderText>{`R$ ${cost.totalCost}`}</PageHeaderText>
       </PageHeader>
       <FormContainer>
         <Formik
