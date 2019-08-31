@@ -35,7 +35,7 @@ const Menu = ({ navigation }) => (
         <Icon name="history" size={30} color="#fff" />
       </HistoryBtn>
       <TextHeader>Pizza Hut</TextHeader>
-      <CartBtn>
+      <CartBtn onPress={() => navigation.navigate('Cart')}>
         <Icon name="shopping" size={30} color="#fff" />
       </CartBtn>
     </Header>
