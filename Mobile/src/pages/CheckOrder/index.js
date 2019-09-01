@@ -190,7 +190,7 @@ const CheckOrder = ({ navigation }) => {
                 editable={false}
                 onChangeText={handleChange('neighborhood')}
               />
-              <FinalizeBtn>
+              <FinalizeBtn onPress={() => navigation.navigate('Cart')}>
                 <FinalizeBtnText>
                 Finalizar
                 </FinalizeBtnText>

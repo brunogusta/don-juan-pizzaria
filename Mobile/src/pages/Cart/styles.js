@@ -15,7 +15,10 @@ export const BackgroundImage = styled.Image`
 
 export const PageHeader = styled.View`
   padding: 0px 10px;
-`;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  `;
 
 
 export const PageHeaderText = styled.Text`
@@ -56,18 +59,32 @@ export const ItemBox = styled.View.attrs({
   border-radius: 5px;
   padding: 14px;
   margin-bottom: 15px;
-  justify-content: center;
+  flex-direction: row;
+  align-items: center;
 `;
 
 
-export const BoxText = styled.Text`
+export const PizzaImage = styled.Image`
+  height: 60px;
+  width: 60px;
+`;
+
+export const DetailsBox = styled.View`
+  align-items: flex-start;
+  margin-left: 20px;
+  `;
+
+export const Title = styled.Text`
   color: #000;
-  font-size: 20px;
+  font-size: 15px;
   `;
-export const TextTime = styled.Text`
-  color: #DDD;
-  font-size: 16px;
+
+export const SizeText = styled.Text`
+  color: #000;
+  font-size:14px;
+  color: #999;
   `;
+
 export const TextCost = styled.Text`
   color: #000;
   font-size: 20px;

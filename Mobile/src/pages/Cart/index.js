@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
@@ -12,7 +13,7 @@ import {
   ReturnButton,
   FlatlistContainer,
   ItemBox,
-  BoxText,
+  Title,
   TextTime,
   TextCost,
   Footer,
@@ -20,75 +21,103 @@ import {
   SendOrdeText,
   MoreitemsButton,
   ContentContainer,
+  PizzaImage,
+  DetailsBox,
+  SizeText,
 }
   from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
+import api from '../../services/api';
 
 
 const CheckOrder = ({ navigation }) => {
-  const [history] = useState({
-    orders: [
-      {
-        key: '2213',
-        order: '#1',
-        date: 'Ontem às 17h',
-        cost: 'R$ 42,00',
-      },
-      {
-        key: '2223',
-        order: '#1',
-        date: 'Ontem às 17h',
-        cost: 'R$ 42,00',
-      },
-      {
-        key: '22133',
-        order: '#1',
-        date: 'Ontem às 17h',
-        cost: 'R$ 42,00',
-      },
-      {
-        key: '22413',
-        order: '#1',
-        date: 'Ontem às 17h',
-        cost: 'R$ 42,00',
-      },
-    ],
+  const [cart, useCart] = useState({
+    data: [],
+    totalCost: '',
   });
 
-  const style = StyleSheet.create({
-    flatList: {
-      alignItems: 'center',
-      paddingHorizontal: 20,
-    },
-  });
+
+  const { userCart, totalValues } = useSelector(state => state);
+  const { lastSize, values } = totalValues;
+  const { pizzas } = userCart.itens;
+
+  async function loadCartItens() {
+    const { data } = await api.get('/cart').catch(err => console.log(err));
+
+
+    const cartItens = pizzas.map((item) => {
+      const filtered = {
+        data: data.find(keyItem => keyItem.key === item),
+      };
+
+
+      return filtered;
+    });
+
+    const formatArray = cartItens.map(object => object.data);
+
+
+    const toNumber = values.map((value) => {
+      let number = value.replace('.', '');
+
+      number = value.replace(',', '.');
+      number = parseFloat(number);
+
+      return number;
+    });
+
+    const totalValue = toNumber.reduce((num1, num2) => num1 + num2);
+    const fixed = totalValue.toFixed(2);
+
+    const coinTransform = fixed.replace('.', ',');
+
+    useCart({
+      ...cart,
+      totalCost: coinTransform,
+      data: [...formatArray],
+    });
+  }
+
+
+  useEffect(() => {
+    loadCartItens();
+  }, []);
+
 
   return (
     <Container>
       <BackgroundImage source={HeaderImage} />
       <PageHeader>
-        <ReturnButton onPress={() => navigation.navigate('Menu')}>
+        <ReturnButton onPress={() => navigation.navigate('CheckOrder')}>
           <Icon name="keyboard-arrow-left" size={27} color="#fff" />
           <PageHeaderText>Carrinho</PageHeaderText>
         </ReturnButton>
+        <PageHeaderText>{`R$${cart.totalCost}`}</PageHeaderText>
       </PageHeader>
       <ContentContainer>
         <FlatlistContainer>
           <FlatList
             contentContainerStyle={style.flatList}
-            data={history.orders}
+            data={cart.data}
             renderItem={({ item }) => (
               <ItemBox>
-                <BoxText>{`Pedido ${item.order}`}</BoxText>
-                <TextTime>{item.date}</TextTime>
-                <TextCost>{item.cost}</TextCost>
+                <PizzaImage source={{
+                  uri: `http://10.10.10.4:3002/files/${item.image}`,
+                }}
+                />
+                <DetailsBox>
+                  <Title>{`Pizza ${item.key}`}</Title>
+                  <SizeText>{`Tamanho: ${lastSize}`}</SizeText>
+                  <TextCost>{`R$${item.value}`}</TextCost>
+                </DetailsBox>
               </ItemBox>
             )}
             showsVerticalScrollIndicator={false}
           />
         </FlatlistContainer>
         <Footer>
-          <MoreitemsButton>
+          <MoreitemsButton onPress={() => navigation.navigate('Menu')}>
             <Icon name="add-shopping-cart" color="#666666" size={20} />
           </MoreitemsButton>
           <SendOrderButton>
@@ -109,3 +138,10 @@ CheckOrder.propTypes = {
 };
 
 export default CheckOrder;
+
+
+const style = StyleSheet.create({
+  flatList: {
+    alignItems: 'center',
+  },
+});

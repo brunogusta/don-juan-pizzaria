@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -26,6 +26,7 @@ import {
 import HeaderImage from '../../assets/images/header-background2x.png';
 import DetailsModal from '../../utils/Animations/pizzaDetails';
 import { Types as costActions } from '../../store/ducks/totalValues';
+import { Types as cartActions } from '../../store/ducks/userCart';
 
 import api from '../../services/api';
 
@@ -36,12 +37,24 @@ const SelectSize = ({ navigation }) => {
     pizzaData: [],
   });
 
+
+  const { totalValues } = useSelector(state => state);
+
+
   const dispatch = useDispatch();
 
   const nextPage = () => {
     dispatch({
       type: costActions.TYPE_VALUE,
       payload: events.costs,
+    });
+
+    dispatch({
+      type: cartActions.CART_ITENS,
+      payload: {
+        keys: events.keys,
+        size: totalValues.lastSize[0],
+      },
     });
 
     navigation.navigate('CheckOrder');
@@ -76,8 +89,8 @@ const SelectSize = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    console.log(events.costs);
-  }, [events.costs]);
+    console.log(events.keys);
+  }, [events.keys]);
 
 
   // Controle de select das pizzas.

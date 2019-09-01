@@ -35,7 +35,7 @@ const AuthStack = createStackNavigator(
 
 const Type = createStackNavigator(
   {
-    Cart,
+    SelectSize,
   },
   {
     headerMode: 'none',
