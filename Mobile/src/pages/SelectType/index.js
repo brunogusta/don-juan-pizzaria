@@ -26,33 +26,25 @@ import {
 import HeaderImage from '../../assets/images/header-background2x.png';
 import DetailsModal from '../../utils/Animations/pizzaDetails';
 import { Types as costActions } from '../../store/ducks/totalValues';
-import { Types as cartActions } from '../../store/ducks/userCart';
+import { Types as orderActions } from '../../store/ducks/orders';
 
 import api from '../../services/api';
 
 const SelectSize = ({ navigation }) => {
   const [events, useEvents] = useState({
-    keys: [],
-    costs: [],
     pizzaData: [],
   });
 
 
-  const { totalValues } = useSelector(state => state);
+  const { totalValues, orders } = useSelector(state => state);
 
 
   const dispatch = useDispatch();
 
   const nextPage = () => {
     dispatch({
-      type: costActions.TYPE_VALUE,
-      payload: events.costs,
-    });
-
-    dispatch({
-      type: cartActions.CART_ITENS,
+      type: orderActions.SIZE_ADD,
       payload: {
-        keys: events.keys,
         size: totalValues.lastSize[0],
       },
     });
@@ -95,23 +87,34 @@ const SelectSize = ({ navigation }) => {
 
   // Controle de select das pizzas.
   const setSelected = (item) => {
-    const isSeted = events.keys.find(keyItem => keyItem === item.key);
-    const haveCost = events.costs.find(costItem => costItem === item.cost);
-
+    const isSeted = orders.pizzas.find(keyItem => keyItem === item.key);
+    const haveCost = totalValues.values.find(costItem => costItem === item.cost);
+    console.log(item);
     if (isSeted) {
-      const filtered = events.keys.filter(card => card !== isSeted);
-      const costSeted = events.costs.filter(card => card !== haveCost);
+      const filtered = orders.pizzas.filter(card => card !== isSeted);
+      const costSeted = totalValues.values.filter(card => card !== haveCost);
 
-      useEvents({
-        ...events,
-        costs: costSeted,
-        keys: filtered,
+      dispatch({
+        type: orderActions.KEY_CHANGE,
+        payload: {
+          pizzas: filtered,
+        },
+      });
+      dispatch({
+        type: costActions.CHANGE_VALUE,
+        payload: costSeted,
       });
     } else {
-      useEvents({
-        ...events,
-        costs: [...events.costs, item.cost],
-        keys: [...events.keys, item.key],
+      dispatch({
+        type: orderActions.KEY_ADD,
+        payload: {
+          pizzas: item.key,
+        },
+      });
+
+      dispatch({
+        type: costActions.TYPE_VALUE,
+        payload: item.cost,
       });
     }
   };
@@ -124,7 +127,7 @@ const SelectSize = ({ navigation }) => {
           <IconMaterial name="keyboard-arrow-left" size={27} color="#fff" />
           <PageHeaderText>Selecione a Pizza</PageHeaderText>
         </ReturnButton>
-        {events.keys.length !== 0
+        {orders.pizzas.length !== 0
           ? (
             <CompleteOrderButton onPress={nextPage}>
               <PageHeaderText>Finalizar Pedido</PageHeaderText>
@@ -140,7 +143,7 @@ const SelectSize = ({ navigation }) => {
             <SelectButton onPress={() => setSelected(item)}>
               <ItemBox>
                 <ItemBoxHeader>
-                  {events.keys.find(keyItem => keyItem === item.key)
+                  {orders.pizzas.find(keyItem => keyItem === item.key)
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
                 </ItemBoxHeader>
                 <PizzaImage source={{

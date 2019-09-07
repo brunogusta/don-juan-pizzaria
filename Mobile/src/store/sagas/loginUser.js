@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { put } from 'redux-saga/effects';
 
 
@@ -13,6 +14,14 @@ export function* loginUserSaga(perfil) {
 
     yield put(LoginActions.handleLoginSuccess());
     const { token, user } = data;
+
+    const userData = {
+      userID: user._id,
+      userEmail: user.email,
+      token,
+    };
+    yield put(LoginActions.saveUserData(userData));
+    console.log(user);
   } catch (err) {
     const { data } = err.response;
     yield put(LoginActions.handleLoginError(data));

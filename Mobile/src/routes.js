@@ -50,7 +50,7 @@ const Routes = createAppContainer(
       Type,
     },
     {
-      initialRouteName: 'Type',
+      initialRouteName: 'Auth',
     },
   ),
 );

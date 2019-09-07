@@ -66,11 +66,15 @@ const SelectSize = ({ navigation }) => {
 
   const dispatch = useDispatch();
   const nextPage = (key) => {
+    const filtered = totalValues.values.filter(item => totalValues.values[0] !== item);
+
+    const newSize = [key.cost, ...filtered];
+
     dispatch({
       type: costActions.SIZE_VALUE,
-      payload: key.cost,
+      payload: newSize,
     });
-
+    console.log(key);
     dispatch({
       type: costActions.LAST_SIZE,
       payload: key.name,

@@ -54,9 +54,14 @@ export const ItemBox = styled.View.attrs({
   border-radius: 5px;
   padding: 14px;
   margin-bottom: 15px;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
 `;
+export const Details = styled.View`
+  flex-direction: column;
+  `;
 
+export const RemoveOrderBtn = styled.TouchableOpacity``;
 
 export const BoxText = styled.Text`
   color: #000;

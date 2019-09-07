@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import userRegister from './userRegister';
 import userLogin from './userLogin';
 import totalValues from './totalValues';
-import userCart from './userCart';
+import orders from './orders';
 
 const reducers = combineReducers({
   userRegister,
   userLogin,
   totalValues,
-  userCart,
+  orders,
 });
 
 export default reducers;

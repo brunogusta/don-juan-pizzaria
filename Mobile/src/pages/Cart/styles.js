@@ -14,18 +14,34 @@ export const BackgroundImage = styled.Image`
 `;
 
 export const PageHeader = styled.View`
-  padding: 0px 10px;
+  padding: 0px 15px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  z-index: 10;
   `;
 
 
 export const PageHeaderText = styled.Text`
   color: #fff;
   font-weight: bold;
+  font-size: 25px;
+  align-self: center;
+  `;
+export const TotalValueText = styled.Text`
+  color: #fff;
+  font-weight: bold;
   font-size: 20px;
   `;
+
+export const IconBox = styled.View`
+  border-radius: 50;
+  background: #E5293E;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+`;
+
 
 export const ReturnButton = styled.TouchableOpacity`
   flex-direction: row;
@@ -65,12 +81,11 @@ export const ItemBox = styled.View.attrs({
 
 
 export const PizzaImage = styled.Image`
-  height: 60px;
-  width: 60px;
+  height: 80px;
+  width: 80px;
 `;
 
 export const DetailsBox = styled.View`
-  align-items: flex-start;
   margin-left: 20px;
   `;
 
@@ -90,6 +105,15 @@ export const TextCost = styled.Text`
   font-size: 20px;
   font-weight: bold;
   `;
+
+export const RemoveButtonContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  `;
+
+
+export const RemoveButton = styled.TouchableOpacity``;
 
 
 export const Footer = styled.View`

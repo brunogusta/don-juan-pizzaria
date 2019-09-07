@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconMaterialC from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 
 
@@ -10,11 +11,10 @@ import {
   BackgroundImage,
   PageHeader,
   PageHeaderText,
-  ReturnButton,
+  TotalValueText,
   FlatlistContainer,
   ItemBox,
   Title,
-  TextTime,
   TextCost,
   Footer,
   SendOrderButton,
@@ -24,44 +24,48 @@ import {
   PizzaImage,
   DetailsBox,
   SizeText,
+  RemoveButton,
+  RemoveButtonContainer,
 }
   from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 import api from '../../services/api';
 
+import { Types as orderActions } from '../../store/ducks/orders';
+import { Types as costActions } from '../../store/ducks/totalValues';
+
 
 const CheckOrder = ({ navigation }) => {
   const [cart, useCart] = useState({
     data: [],
+  });
+
+  const [cost, useCost] = useState({
     totalCost: '',
   });
 
 
-  const { userCart, totalValues } = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const { orders, totalValues, userLogin } = useSelector(state => state);
   const { lastSize, values } = totalValues;
-  const { pizzas } = userCart.itens;
 
   async function loadCartItens() {
     const { data } = await api.get('/cart').catch(err => console.log(err));
 
 
-    const cartItens = pizzas.map((item) => {
+    const cartItens = orders.pizzas.map((item) => {
       const filtered = {
         data: data.find(keyItem => keyItem.key === item),
       };
-
-
       return filtered;
     });
 
     const formatArray = cartItens.map(object => object.data);
 
-
     const toNumber = values.map((value) => {
-      let number = value.replace('.', '');
-
-      number = value.replace(',', '.');
+      let number = value.replace(',', '.');
       number = parseFloat(number);
 
       return number;
@@ -74,8 +78,12 @@ const CheckOrder = ({ navigation }) => {
 
     useCart({
       ...cart,
-      totalCost: coinTransform,
       data: [...formatArray],
+    });
+
+    useCost({
+      ...cost,
+      totalCost: coinTransform,
     });
   }
 
@@ -84,16 +92,84 @@ const CheckOrder = ({ navigation }) => {
     loadCartItens();
   }, []);
 
+  useEffect(() => {
+    if (cost.totalCost === values[0] || cost.totalCost === 'NaN') {
+      dispatch({
+        type: costActions.RESET_VALUES,
+      });
+
+      useCost({
+        totalCost: '0,00',
+      });
+    }
+  }, [cost.totalCost]);
+
+
+  const removeItem = (item) => {
+    const filtered = cart.data.filter(data => data.key !== item.key);
+
+    const haveCost = values.find(costItem => costItem === item.value);
+
+    const costSeted = values.filter(card => card !== haveCost);
+
+    const keys = filtered.map(pizza => pizza.key);
+
+
+    let total = cost.totalCost.replace(',', '.');
+    let itemCost = item.value.replace(',', '.');
+
+    total = parseFloat(total);
+
+    itemCost = parseFloat(itemCost);
+
+
+    const totalValue = total - itemCost;
+    const fixed = totalValue.toFixed(2);
+    const coinTransform = fixed.replace('.', ',');
+
+    useCost({
+      ...cost,
+      totalCost: coinTransform,
+    });
+
+
+    useCart({
+      ...cart,
+      data: filtered,
+    });
+
+    dispatch({
+      type: orderActions.KEY_CHANGE,
+      payload: {
+        pizzas: keys,
+      },
+
+    });
+
+    dispatch({
+      type: costActions.CHANGE_VALUE,
+      payload: costSeted,
+    });
+  };
+
+  const sendOrder = () => {
+    console.log(userLogin.user);
+    const { userEmail } = userLogin.user;
+
+    api.post('/orders/history', {
+      user: userEmail,
+      history: [
+        { totalCost: cost.totalCost },
+      ],
+    });
+  };
 
   return (
     <Container>
       <BackgroundImage source={HeaderImage} />
       <PageHeader>
-        <ReturnButton onPress={() => navigation.navigate('CheckOrder')}>
-          <Icon name="keyboard-arrow-left" size={27} color="#fff" />
-          <PageHeaderText>Carrinho</PageHeaderText>
-        </ReturnButton>
-        <PageHeaderText>{`R$${cart.totalCost}`}</PageHeaderText>
+        <PageHeaderText>Carrinho</PageHeaderText>
+        <TotalValueText>{`R$ ${cost.totalCost}`}</TotalValueText>
       </PageHeader>
       <ContentContainer>
         <FlatlistContainer>
@@ -111,6 +187,11 @@ const CheckOrder = ({ navigation }) => {
                   <SizeText>{`Tamanho: ${lastSize}`}</SizeText>
                   <TextCost>{`R$${item.value}`}</TextCost>
                 </DetailsBox>
+                <RemoveButtonContainer>
+                  <RemoveButton onPress={() => removeItem(item)}>
+                    <IconMaterialC name="trash-can" size={27} color="#E5293E" />
+                  </RemoveButton>
+                </RemoveButtonContainer>
               </ItemBox>
             )}
             showsVerticalScrollIndicator={false}
@@ -120,7 +201,7 @@ const CheckOrder = ({ navigation }) => {
           <MoreitemsButton onPress={() => navigation.navigate('Menu')}>
             <Icon name="add-shopping-cart" color="#666666" size={20} />
           </MoreitemsButton>
-          <SendOrderButton>
+          <SendOrderButton onPress={sendOrder}>
             <SendOrdeText>Realizar Pedido</SendOrdeText>
             <Icon name="keyboard-arrow-right" size={27} color="#fff" />
           </SendOrderButton>

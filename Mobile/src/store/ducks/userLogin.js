@@ -3,6 +3,7 @@ export const Types = {
   LOGIN_ERROR: 'userLogin/LOGIN_ERROR',
   LOGIN_RESET: 'userLogin/LOGIN_RESET',
   LOGIN_SUCCESS: 'userLogin/LOGIN_SUCCESS',
+  USER_DATA: 'userLogin/USER_DATA',
 };
 
 
@@ -10,16 +11,27 @@ const INITIAL_VALUES = {
   error: false,
   errorMessage: '',
   success: false,
+  user: {},
 };
 
 export default function userLogin(state = INITIAL_VALUES, action) {
   switch (action.type) {
     case Types.LOGIN_ERROR:
-      return { error: true, errorMessage: action.payload, success: false };
+      return {
+        ...state, error: true, errorMessage: action.payload, success: false,
+      };
     case Types.LOGIN_RESET:
-      return { error: false, errorMessage: '', success: false };
+      return {
+        ...state, error: false, errorMessage: '', success: false,
+      };
     case Types.LOGIN_SUCCESS:
-      return { error: false, errorMessage: '', success: true };
+      return {
+        ...state, error: false, errorMessage: '', success: true,
+      };
+    case Types.USER_DATA:
+      return {
+        ...state, user: action.payload,
+      };
     default:
       return state;
   }
@@ -36,5 +48,9 @@ export const Creators = {
   }),
   resetState: () => ({
     type: Types.LOGIN_RESET,
+  }),
+  saveUserData: data => ({
+    type: Types.USER_DATA,
+    payload: data,
   }),
 };

@@ -39,7 +39,7 @@ const CheckOrder = ({ navigation }) => {
 
 
   const { totalValues } = useSelector(state => state);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [cost, useTotalValue] = useState({
     totalCost: Number,
   });
@@ -63,16 +63,13 @@ const CheckOrder = ({ navigation }) => {
     useTotalValue({
       totalCost: coinTransform,
     });
-  }, []);
+
+    console.log(totalValues.values);
+  }, [totalValues]);
 
 
   const resetTotalValue = () => {
     const sizeCost = totalValues.values.find(value => value[0]);
-
-    dispatch({
-      type: costActions.TYPE_RESET,
-      payload: sizeCost,
-    });
 
     console.log(sizeCost);
 
