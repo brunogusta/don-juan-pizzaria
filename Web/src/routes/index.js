@@ -1,34 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
-  BrowserRouter, Switch, Route, Redirect,
+  Switch,
+  Route,
 } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 
-// import { Container } from './styles';
+import history from './history';
+
 import SignIn from '../pages/SignIn';
 import Main from '../pages/Main';
-
-
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//   <Route
-//     {...rest}
-//     render={props => (
-//       isAuthenticated() ? (
-//         <Component {...props} />
-//       ) : (
-//         <Redirect to={{ pathname: '/', state: { from: props.location } }} />
-//       )
-//     )}
-//   />
-// );
+import PrivateRoute from './privateRoute';
 
 
 const Routes = () => (
-  <BrowserRouter>
+  <ConnectedRouter history={history}>
     <Switch>
       <Route exact path="/" component={SignIn} />
-      {/* <PrivateRoute path="/main" component={Main} /> */}
+      <PrivateRoute path="/main" component={Main} />
     </Switch>
-  </BrowserRouter>
+  </ConnectedRouter>
 );
 
 export default Routes;

@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'connected-react-router';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -15,9 +16,6 @@ import { Types as LoginActions } from '../../store/ducks/userLogin';
 const SignIn = () => {
   const [login, useLogin] = useState({
     inLoading: false,
-    success: false,
-    error: false,
-    errorMessage: '',
   });
 
   const dispatch = useDispatch();
@@ -30,27 +28,46 @@ const SignIn = () => {
     };
 
 
+    dispatch({
+      type: LoginActions.LOGIN_REQUEST,
+      payload: data,
+    });
+
     useLogin({
       ...login,
       inLoading: true,
-      error: true,
     });
   };
 
+  const { userLogin } = useSelector(state => state);
+
+  const ResetLoading = () => {
+    useLogin({
+      ...login,
+      inLoading: false,
+    });
+  };
 
   useEffect(() => {
-    if (login.error) {
-      toast.error('Deu erro', {
+    if (userLogin.error) {
+      toast.error(`${userLogin.errorMessage.error}`, {
         position: toast.POSITION.BOTTOM_RIGHT,
         draggable: false,
         autoClose: 8000,
       });
     }
-  }, [login.error]);
 
-  const { userLogin } = useSelector(state => state);
-  const { error } = userLogin.errorMessage;
+    ResetLoading();
 
+    dispatch({
+      type: LoginActions.LOGIN_RESET,
+    });
+  }, [userLogin.error]);
+
+
+  useEffect(() => {
+    push('/main');
+  }, []);
 
   return (
     <Fragment>
@@ -97,7 +114,6 @@ const SignIn = () => {
                   value={values.password}
                 />
                 {errors.password && touched.password && <div>{errors.password}</div>}
-
                 <button type="submit">{login.inLoading ? <LoadingIcon /> : 'Entrar'}</button>
               </form>
             )}
