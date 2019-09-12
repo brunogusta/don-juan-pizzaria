@@ -40,7 +40,7 @@ const SignIn = () => {
   };
 
   const { userLogin } = useSelector(state => state);
-
+  const { error } = userLogin.errorMessage;
   const ResetLoading = () => {
     useLogin({
       ...login,
@@ -50,10 +50,10 @@ const SignIn = () => {
 
   useEffect(() => {
     if (userLogin.error) {
-      toast.error(`${userLogin.errorMessage.error}`, {
+      toast.error(`${error}`, {
         position: toast.POSITION.BOTTOM_RIGHT,
         draggable: false,
-        autoClose: 8000,
+        autoClose: 3000,
       });
     }
 
@@ -66,7 +66,9 @@ const SignIn = () => {
 
 
   useEffect(() => {
-    push('/main');
+    if (window.localStorage.getItem('adm')) {
+      push('/main');
+    }
   }, []);
 
   return (
@@ -82,10 +84,10 @@ const SignIn = () => {
               email: Yup
                 .string()
                 .email('O E-mail informado não é válido.')
-                .required('O E-mail é obrigatório.'),
+                .required('Informe seu E-mail'),
               password: Yup
                 .string()
-                .required('A senha é obrigatória.'),
+                .required('Informe sua senha'),
             })}
             render={({
               values,

@@ -1,7 +1,10 @@
 const express = require('express');
 const historySchema = require('../models/historySchema');
+const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.get('/userdata/:user', async (req, res) => {
   const user = req.params.user;

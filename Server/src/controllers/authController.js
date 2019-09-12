@@ -14,7 +14,6 @@ function generateToken(params = {}) {
 
 router.post('/register', async (req, res) => {
   const { email } = req.body;
-  console.log(req.body);
   try {
     if (await User.findOne({ email })) {
       return res.status(400).send('Usuário já existe.');
@@ -38,6 +37,7 @@ router.post('/authenticate', async (req, res) => {
 
   const user = await User.findOne({ email }).select('+password');
 
+  console.log(user);
   if (!user) {
     return res.status(400).send({ error: 'O E-mail informado não existe' });
   }
@@ -49,6 +49,30 @@ router.post('/authenticate', async (req, res) => {
 
   return res.send({
     user,
+    token: generateToken({ id: user.id })
+  });
+});
+
+router.post('/authenticate/admin', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email }).select('+password');
+
+  if (!user) {
+    return res.status(400).send({ error: 'O E-mail informado não existe' });
+  }
+
+  if (!(await bcrypt.compare(password, user.password)))
+    return res.status(400).send({ error: 'Senha incorreta' });
+
+  user.password = undefined;
+
+  if (!user.admin) {
+    return res.status(400).send({ error: 'Usuário não é administrador' });
+  }
+
+  return res.send({
+    user: user.name,
     token: generateToken({ id: user.id })
   });
 });

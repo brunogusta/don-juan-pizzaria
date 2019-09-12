@@ -2,6 +2,11 @@ const mongoose = require('../database');
 const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true
+  },
   email: {
     type: String,
     required: true,
@@ -12,6 +17,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false
+  },
+  admin: {
+    type: Boolean,
+    required: true,
+    default: false
   },
   createdAt: {
     type: Date,

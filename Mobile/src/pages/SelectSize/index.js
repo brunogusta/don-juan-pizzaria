@@ -37,7 +37,7 @@ const SelectSize = ({ navigation }) => {
 
   const { totalValues } = useSelector(state => state);
   async function loadSizes() {
-    const response = await api.get('/register/sizes').catch(err => console.log(err));
+    const response = await api.get('/register/sizes').catch(err => console.log(err.response));
     console.log(response);
 
     const size = response.data.map((item) => {

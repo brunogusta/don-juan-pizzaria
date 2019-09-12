@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 app.use('/files', express.static(path.resolve(__dirname, 'images')));
 
 require('./controllers/authController')(app);
-require('./controllers/projectController')(app);
 require('./controllers/pizzasController')(app);
 require('./controllers/cartController')(app);
 require('./controllers/ordersController')(app);

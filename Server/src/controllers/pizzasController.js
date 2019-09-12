@@ -1,8 +1,11 @@
 const express = require('express');
 const PizzaTypes = require('../models/pizzaSchema');
 const SizeTypes = require('../models/sizeSchema');
+const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.post('/pizzas', async (req, res) => {
   console.log(req.body);

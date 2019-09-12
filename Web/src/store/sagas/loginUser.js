@@ -9,14 +9,13 @@ import { Creators as LoginActions } from '../ducks/userLogin';
 export function* loginUserSaga(perfil) {
   try {
     const { email, password } = perfil.payload;
-    const { data } = yield api.post('auth/authenticate', { email, password });
+    const { data } = yield api.post('auth/authenticate/admin', { email, password });
 
     const { token, user } = data;
 
+    console.log(data);
     const userData = {
-      userID: user._id,
-      userEmail: user.email,
-      admin: user.admin,
+      name: user,
       token,
     };
 
@@ -24,14 +23,11 @@ export function* loginUserSaga(perfil) {
     yield put(LoginActions.handleLoginSuccess());
     yield put(LoginActions.saveUserData(userData));
 
-    if (user.admin) {
-      yield put(push('/main'));
 
+    yield window.localStorage.setItem('TOKEN_KEY', JSON.stringify(token));
+    yield window.localStorage.setItem('USER_NAME', JSON.stringify(user));
 
-      window.localStorage.setItem('adm', JSON.stringify(userData));
-    } else {
-      yield put(LoginActions.handleLoginError({ error: 'Usuário não é administrador' }));
-    }
+    yield put(push('/main'));
   } catch (err) {
     const { data } = err.response;
     console.log(data);
