@@ -13,6 +13,7 @@ function generateToken(params = {}) {
 }
 
 router.post('/register', async (req, res) => {
+  console.log(req.body);
   const { email } = req.body;
   try {
     if (await User.findOne({ email })) {
@@ -20,7 +21,7 @@ router.post('/register', async (req, res) => {
     }
 
     const user = await User.create(req.body);
-    console.log(req.body);
+
     user.password = undefined;
 
     return res.send({
@@ -28,6 +29,7 @@ router.post('/register', async (req, res) => {
       token: generateToken({ id: user.id })
     });
   } catch (err) {
+    console.log(err);
     return res.status(400).send({ error: 'Registration failed' });
   }
 });
