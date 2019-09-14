@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 
 export default createGlobalStyle`

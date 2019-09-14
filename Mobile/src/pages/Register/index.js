@@ -37,8 +37,9 @@ const Register = (props) => {
 
   const dispatch = useDispatch();
 
-  const hadleSubmitValues = ({ email, password }) => {
+  const hadleSubmitValues = ({ email, password, name }) => {
     const data = {
+      name,
       email,
       password,
     };
@@ -97,12 +98,16 @@ const Register = (props) => {
             <Logo source={Logoimg} />
           </ContainerLogo>
           <Formik
-            initialValues={{ email: '', password: '', confirmPassword: '' }}
+            initialValues={{
+              email: '', name: '', password: '', confirmPassword: '',
+            }}
             onSubmit={values => hadleSubmitValues(values)}
             validationSchema={Yup.object().shape({
               email: Yup.string()
                 .email('O E-mail informado não é válido.')
                 .required('O E-mail é obrigatório.'),
+              name: Yup.string()
+                .required('O nome é obrigatório.'),
               password: Yup.string()
                 .min(1, 'A senha deve ter no mínimo 6 caracteres.')
                 .required('A senha é obrigatória.'),
@@ -133,6 +138,15 @@ const Register = (props) => {
                   onChangeText={handleChange('email')}
                 />
                 {touched.email && errors.email && <TextError>{errors.email}</TextError>}
+                <Input
+                  placeholder="Nome"
+                  keyboardType="default"
+                  autoCorrect={false}
+                  value={values.name}
+                  onBlur={() => setFieldTouched('name')}
+                  onChangeText={handleChange('name')}
+                />
+                {touched.name && errors.name && <TextError>{errors.name}</TextError>}
                 <Input
                   placeholder="Senha secreta"
                   onBlur={() => setFieldTouched('password')}

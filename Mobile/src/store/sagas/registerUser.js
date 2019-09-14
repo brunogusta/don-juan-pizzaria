@@ -5,13 +5,12 @@ import { Creators as RegisterActions } from '../ducks/userRegister';
 
 export function* registerUserSaga(perfil) {
   try {
-    const { email, password } = perfil.payload;
+    const { email, password, name } = perfil.payload;
 
-    yield api.post('auth/register', { email, password });
+    yield api.post('auth/register', { email, password, name });
 
     yield put(RegisterActions.handleRegisterSuccess());
     yield put(RegisterActions.spin());
-
   } catch (err) {
     const { data } = err.response;
 

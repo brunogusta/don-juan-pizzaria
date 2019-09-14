@@ -10,5 +10,6 @@ export const getToken = async () => {
 
 
 export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem('TOKEN_KEY');
+  localStorage.removeItem('USER_NAME');
 };
