@@ -121,7 +121,7 @@ export const HeaderBox = styled.div`
 export const OrderItems = styled.div`
   width: 100%;
   margin-top: 20px;
-  padding: 0 50px;
+  padding: 10px 50px;
   border-top:1px solid #D3D3D3;
   border-bottom: 1px solid #D3D3D3;
 `;
@@ -136,7 +136,6 @@ export const Item = styled.div`
   padding: 20px;
   margin: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 div {
   display: flex;
   align-items: left;
@@ -152,5 +151,36 @@ div {
     height: 60px;
     width: 60px;
   }
+
+
+  p {
+    font-size: 15px;
+  }
+
+  p:nth-child(2n) {
+    color: #96949e;
+    font-size: 14px;
+    margin: 5px 0;
+  }
 }
+`;
+
+export const OrderFooter = styled.div`
+  height: 100%;
+  padding-top: 20px;
+  color: #96949e;
+`;
+
+export const NoOrders = styled.div`
+  width: 400px;
+  height:50px;
+  color: #96949e;
+
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left:0;
+  right: 0;
+
+  margin: auto;
 `;
