@@ -1,6 +1,9 @@
 const express = require('express');
 const historySchema = require('../models/historySchema');
+const ordersSchema = require('../models/ordersSchema');
 const authMiddleware = require('../middlewares/auth');
+
+const helpers = require('../utils/helpers');
 
 const router = express.Router();
 
@@ -42,6 +45,26 @@ router.post('/history', async (req, res) => {
 
     res.send(history);
     console.log(req.body);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const order = await ordersSchema.create(req.body);
+
+    res.send(order);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const order = await ordersSchema.find();
+
+    res.send(order);
   } catch (err) {
     console.log(err);
   }
