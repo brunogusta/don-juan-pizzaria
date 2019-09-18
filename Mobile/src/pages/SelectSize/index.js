@@ -113,7 +113,7 @@ const SelectSize = ({ navigation }) => {
                   <Image
                     size={item.name}
                     source={{
-                      uri: `http://10.10.10.4:3002/files/${item.image}`,
+                      uri: `http://10.10.10.6:3002/files/${item.image}`,
                     }}
                   />
                 </ImageContainer>

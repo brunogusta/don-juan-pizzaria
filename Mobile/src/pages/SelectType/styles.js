@@ -61,8 +61,8 @@ export const ItemBoxHeader = styled.View`
   height: 27px;
 `;
 export const PizzaImage = styled.Image`
-  height: 61%;
-  width: 77%;
+  height: 47%;
+  width: 60%;
   align-self: center;
 `;
 export const ItemText = styled.Text`
@@ -98,6 +98,18 @@ export const DetailButton = styled.TouchableOpacity.attrs({
   position: absolute;
   left: 130px;
 `;
+
+export const PizzaValue = styled.View`
+  flex: 1;
+  align-items: center;
+  margin-top: 7px;
+`;
+
+export const ValueText = styled.Text`
+  color: #ccc;
+  font-weight: bold;
+`;
+
 
 // ANIMATION
 

@@ -9,15 +9,16 @@ export const InfoButton = styled.TouchableOpacity.attrs({
   hitSlop: { bottom: 40, left: 10, right: 30 },
 })`
   position: absolute;
-  left: 130px;
+  left: 140px;
+  top: 150px;
 `;
 
 export const CloseBtn = styled.TouchableOpacity.attrs({
   hitSlop: { bottom: 30, left: 30 },
 })`
   position: absolute;
-  left: 150;
-  top:5;
+  left: 150px;
+  top:5px;
 `;
 
 export const CloseBtnText = styled.Text`

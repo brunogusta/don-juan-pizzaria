@@ -76,8 +76,8 @@ const DetailsModal = ({ value }) => {
     box: {
       position: 'absolute',
       width: 180,
-      height: 221,
-      bottom: -241,
+      height: 220,
+      bottom: -220,
       borderRadius: 5,
       backgroundColor: '#E37a7a',
       zIndex: 20,

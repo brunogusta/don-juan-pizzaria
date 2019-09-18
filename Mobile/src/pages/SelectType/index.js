@@ -21,6 +21,8 @@ import {
   MoreDetailsBox,
   Title,
   CompleteOrderButton,
+  PizzaValue,
+  ValueText,
 } from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
@@ -69,6 +71,7 @@ const SelectSize = ({ navigation }) => {
       return content;
     });
 
+    console.log(pizzas);
     useEvents({
       ...events,
       pizzaData: pizzas,
@@ -142,15 +145,18 @@ const SelectSize = ({ navigation }) => {
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
                 </ItemBoxHeader>
                 <PizzaImage source={{
-                  uri: `http://10.10.10.4:3002/files/${item.image}`,
+                  uri: `http://10.10.10.6:3002/files/${item.image}`,
                 }}
                 />
                 <MoreDetailsBox>
                   <Title>
                     <ItemText>{item.key}</ItemText>
                   </Title>
-                  <DetailsModal value={item} />
                 </MoreDetailsBox>
+                <PizzaValue>
+                  <ValueText> + R$ {item.cost}</ValueText>
+                </PizzaValue>
+                <DetailsModal value={item} />
               </ItemBox>
             </SelectButton>
           )}

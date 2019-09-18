@@ -226,7 +226,7 @@ const CheckOrder = ({ navigation }) => {
             renderItem={({ item }) => (
               <ItemBox>
                 <PizzaImage source={{
-                  uri: `http://10.10.10.4:3002/files/${item.image}`,
+                  uri: `http://10.10.10.6:3002/files/${item.image}`,
                 }}
                 />
                 <DetailsBox>
