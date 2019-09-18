@@ -11,7 +11,6 @@ router.use(authMiddleware);
 
 router.get('/userdata/:user', async (req, res) => {
   const user = req.params.user;
-  console.log(user);
   try {
     const data = await historySchema.find({ user: user });
 
@@ -24,7 +23,6 @@ router.get('/userdata/:user', async (req, res) => {
 router.post('/history', async (req, res) => {
   try {
     const { user } = req.body;
-    console.log(req.body);
 
     if (await historySchema.findOne({ user })) {
       const totalCost = req.body.history[0];
@@ -44,7 +42,6 @@ router.post('/history', async (req, res) => {
     const history = await historySchema.create(req.body);
 
     res.send(history);
-    console.log(req.body);
   } catch (err) {
     console.log(err);
   }
@@ -52,9 +49,13 @@ router.post('/history', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const order = await ordersSchema.create(req.body);
+    const order = await ordersSchema
+      .create(req.body.formated)
+      .catch(err => console.log(err));
 
-    res.send(order);
+    req.io.emit('order', order);
+
+    res.status(200).send(order);
   } catch (err) {
     console.log(err);
   }

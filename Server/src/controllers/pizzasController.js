@@ -8,8 +8,6 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.post('/pizzas', async (req, res) => {
-  console.log(req.body);
-
   try {
     const { image, title, key, value, details, sizes } = req.body;
 

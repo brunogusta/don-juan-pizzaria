@@ -13,7 +13,6 @@ function generateToken(params = {}) {
 }
 
 router.post('/register', async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
   try {
     if (await User.findOne({ email })) {
@@ -39,7 +38,6 @@ router.post('/authenticate', async (req, res) => {
 
   const user = await User.findOne({ email }).select('+password');
 
-  console.log(user);
   if (!user) {
     return res.status(400).send({ error: 'O E-mail informado não existe' });
   }

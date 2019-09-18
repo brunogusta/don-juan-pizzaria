@@ -55,7 +55,6 @@ const SelectSize = ({ navigation }) => {
 
   async function loadPizzas() {
     const response = await api.get('/register').catch(err => console.log(err));
-    console.log(response);
 
     const pizzas = response.data.map((item) => {
       const content = {
@@ -80,16 +79,12 @@ const SelectSize = ({ navigation }) => {
     loadPizzas();
   }, []);
 
-  useEffect(() => {
-    console.log(events.keys);
-  }, [events.keys]);
-
 
   // Controle de select das pizzas.
   const setSelected = (item) => {
     const isSeted = orders.pizzas.find(keyItem => keyItem === item.key);
     const haveCost = totalValues.values.find(costItem => costItem === item.cost);
-    console.log(item);
+
     if (isSeted) {
       const filtered = orders.pizzas.filter(card => card !== isSeted);
       const costSeted = totalValues.values.filter(card => card !== haveCost);

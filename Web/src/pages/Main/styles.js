@@ -14,6 +14,50 @@ export const Header = styled.div`
   padding: 20px 40px 20px 200px;
 `;
 
+
+export const OrderBox = styled.div`
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;
+
+export const HeaderBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+
+
+  p {
+    font-size: 15px;
+  }
+
+  p:nth-child(2n) {
+    color: #96949e;
+    font-size: 14px;
+    margin: 5px 0;
+  }
+`;
+
+export const OrderDetails = styled.div`
+  flex-direction: column;
+  `;
+
+export const AdressBox = styled.div`
+  flex-direction: column;
+  border-left: 1px solid #D3D3D3;
+  width: 427px;
+  padding-left: 10px;
+
+  p {
+    font-size: 13px;
+    color: #96949e;
+  }
+  `;
+
+
 export const LogoBox = styled.div`
   width: 300px;
   display: flex;
@@ -92,36 +136,11 @@ export const OrdersContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const OrderBox = styled.div`
-  width: 100%;
-  margin-top: 20px;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-`;
-
-
-export const HeaderBox = styled.div`
-  flex-direction: column;
-  padding-bottom: 10px;
-
-
-  p {
-    font-size: 20px;
-  }
-
-  p:nth-child(2n) {
-    color: #96949e;
-    font-size: 14px;
-    margin: 5px 0;
-  }
-`;
-
 
 export const OrderItems = styled.div`
   width: 100%;
   margin-top: 20px;
-  padding: 10px 50px;
+  padding: 10px 20px;
   border-top:1px solid #D3D3D3;
   border-bottom: 1px solid #D3D3D3;
 `;
@@ -130,7 +149,7 @@ export const OrderItems = styled.div`
 export const Item = styled.div`
   display: inline-block;
   align-items: center;
-  width: 260px;
+  width: 290px;
   height: 100px;
   border-radius: 15px;
   padding: 20px;

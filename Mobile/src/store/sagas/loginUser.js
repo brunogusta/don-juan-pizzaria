@@ -18,6 +18,7 @@ export function* loginUserSaga(perfil) {
     const TOKEN_KEY = token;
 
     const userData = {
+      name: user.name,
       userID: user._id,
       userEmail: user.email,
     };

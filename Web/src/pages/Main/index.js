@@ -3,9 +3,10 @@ import {
   formatRelative, parseISO,
 } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-
+import io from 'socket.io-client';
 import history from '../../routes/history';
 import api from '../../services/api';
+
 
 import {
   Container,
@@ -22,20 +23,25 @@ import {
   Item,
   OrderFooter,
   NoOrders,
+  OrderDetails,
+  AdressBox,
+  AdressBorder,
 } from './styles';
 import LogoImg from '../../images/logo@3x.png';
 
 import { logout } from '../../services/auth';
+
 
 const Main = () => {
   const [userOrder, useUserOrder] = useState({
     cards: [],
   });
 
+
   const LogOut = () => {
     logout();
 
-    history.push('/');
+    history.go('/');
   };
 
   const LoadOrders = (data) => {
@@ -44,9 +50,11 @@ const Main = () => {
     });
   };
 
-  useEffect(async () => {
-    const { data } = await api.get('/orders').catch(err => console.log(err));
 
+  const SetData = async () => {
+    const { data } = await api.get('/orders').catch(err => console.log(err.response));
+
+    console.log(data);
     const formated = data.map((item, index) => {
       const firstDate = parseISO(item.order.orderDate);
 
@@ -62,6 +70,10 @@ const Main = () => {
         totalCost: item.order.totalCost,
         observations: item.order.observations,
         items: item.order.items,
+        logradouro: item.logradouro,
+        number: item.number,
+        cep: item.cep,
+        bairro: item.bairro,
       };
 
       return newData;
@@ -73,30 +85,44 @@ const Main = () => {
 
 
     LoadOrders(formated);
+  };
+
+
+  useEffect(() => {
+    const socket = io('http://localhost:3002');
+
+    socket.on('order', () => {
+      SetData();
+    });
+  });
+
+  useEffect(async () => {
+    SetData();
   }, []);
+
 
   return (
     <Container>
+      <Header>
+        <LogoBox>
+          <img src={LogoImg} alt="logo" />
+          <h1>Pizza Hut</h1>
+        </LogoBox>
+        <UserBox>
+          <UserDetail>
+            <p>Bruno Gustavo</p>
+            <button onClick={LogOut} type="button">Sair do app</button>
+          </UserDetail>
+          <Border />
+          <IconBox>
+            <i className="fas fa-shopping-bag" />
+            {userOrder.cards.length !== 0 && <div />}
+          </IconBox>
+        </UserBox>
+      </Header>
       {userOrder.cards.length === 0
         ? (
           <>
-            <Header>
-              <LogoBox>
-                <img src={LogoImg} alt="logo" />
-                <h1>Pizza Hut</h1>
-              </LogoBox>
-              <UserBox>
-                <UserDetail>
-                  <p>Bruno Gustavo</p>
-                  <button onClick={LogOut} type="button">Sair do app</button>
-                </UserDetail>
-                <Border />
-                <IconBox>
-                  <i className="fas fa-shopping-bag" />
-                  {userOrder.cards.length !== 0 && <div />}
-                </IconBox>
-              </UserBox>
-            </Header>
             <NoOrders>
               <h1>Não há nenhum pedido.</h1>
             </NoOrders>
@@ -109,19 +135,43 @@ const Main = () => {
               {userOrder.cards.map(item => (
                 <OrderBox key={item.key}>
                   <HeaderBox>
-                    <p>
+                    <OrderDetails>
+                      <p>
                 Pedido #
-                      {item.orderNumber}
-                      {' '}
+                        {item.orderNumber}
+                        {' '}
                   -
-                      {' '}
-                      {item.user}
-                    </p>
-                    <p>{item.orderDate}</p>
-                    <h3>
+                        {' '}
+                        {item.user}
+                      </p>
+                      <p>{item.orderDate}</p>
+                      <h3>
                 R$
-                      {item.totalCost}
-                    </h3>
+                        {item.totalCost}
+                      </h3>
+                    </OrderDetails>
+                    <AdressBox>
+                      <p>
+                        Rua:
+                        {' '}
+                        {item.logradouro}
+                      </p>
+                      <p>
+                        Núḿero:
+                        {' '}
+                        {item.number}
+                      </p>
+                      <p>
+                        CEP:
+                        {' '}
+                        {item.cep}
+                      </p>
+                      <p>
+                        Bairro:
+                        {' '}
+                        {item.bairro}
+                      </p>
+                    </AdressBox>
                   </HeaderBox>
                   <OrderItems>
                     {item.items.flat().map(item => (
@@ -130,7 +180,6 @@ const Main = () => {
                           <img src={`http://localhost:3002/files/${item.image}`} alt="pizza" />
                           <div>
                             <p>
-                        Pizza de
                               {' '}
                               {item.name}
                             </p>

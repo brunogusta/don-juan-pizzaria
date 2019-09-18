@@ -23,7 +23,8 @@
     "mongoose": "^5.7.1",
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.5",
-    "pm2": "^2.1.5"
+    "pm2": "^2.1.5",
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

@@ -20,7 +20,6 @@ const UserSchema = new mongoose.Schema({
   },
   admin: {
     type: Boolean,
-    required: true,
     default: false
   },
   createdAt: {

@@ -28,18 +28,23 @@ import HeaderImage from '../../assets/images/header-background2x.png';
 
 import cepApi from '../../services/cep';
 
-import { Types as costActions } from '../../store/ducks/totalValues';
+import { Types as userActions } from '../../store/ducks/userPreferences';
 
 const CheckOrder = ({ navigation }) => {
-  const [getAdress, useGetAdress] = useState({
+  const [userData, useUserData] = useState({
     logradouro: '',
     bairro: '',
     error: '',
+    cep: '',
+    number: '',
+  });
+
+  const [cepInput, useCepInput] = useState({
+    cep: '',
   });
 
 
   const { totalValues } = useSelector(state => state);
-  // const dispatch = useDispatch();
   const [cost, useTotalValue] = useState({
     totalCost: Number,
   });
@@ -75,17 +80,28 @@ const CheckOrder = ({ navigation }) => {
 
     navigation.navigate('SelectType');
   };
-  const [cepInput, useCepInput] = useState({
-    cep: '',
-  });
 
+  const dispatch = useDispatch();
   const handleSubmitValues = (values) => {
-    console.log(values);
+    const formatedData = {
+      observations: values.note,
+      cep: cepInput.cep,
+      number: values.number,
+      logradouro: userData.logradouro,
+      bairro: userData.bairro,
+    };
+
+    dispatch({
+      type: userActions.USER_DATA,
+      payload: formatedData,
+    });
+
+    navigation.navigate('Cart');
   };
 
   const setAdrees = (data) => {
-    useGetAdress({
-      ...getAdress,
+    useUserData({
+      ...userData,
       logradouro: data.logradouro,
       bairro: data.bairro,
       error: data,
@@ -99,7 +115,7 @@ const CheckOrder = ({ navigation }) => {
     });
 
     if (text === '') {
-      useGetAdress({
+      useUserData({
         logradouro: '',
         bairro: '',
         error: '',
@@ -142,12 +158,8 @@ const CheckOrder = ({ navigation }) => {
         >
           {({
             values,
-            handleSubmit,
             handleChange,
-            errors,
-            isValid,
             setFieldTouched,
-            touched,
           }) => (
             <>
               <NoteInput
@@ -168,7 +180,7 @@ const CheckOrder = ({ navigation }) => {
                 <StreetInput
                   placeholder="Rua"
                   onBlur={() => setFieldTouched('street')}
-                  value={getAdress.logradouro}
+                  value={userData.logradouro}
                   editable={false}
                   multiline
                 />
@@ -183,11 +195,11 @@ const CheckOrder = ({ navigation }) => {
               <NeighborhoodInput
                 placeholder="Bairro"
                 onBlur={() => setFieldTouched('neighborhood')}
-                value={getAdress.bairro}
+                value={userData.bairro}
                 editable={false}
                 onChangeText={handleChange('neighborhood')}
               />
-              <FinalizeBtn onPress={() => navigation.navigate('Cart')}>
+              <FinalizeBtn onPress={() => handleSubmitValues(values)}>
                 <FinalizeBtnText>
                 Finalizar
                 </FinalizeBtnText>

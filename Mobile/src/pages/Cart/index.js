@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlatList, StyleSheet } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconMaterialC from 'react-native-vector-icons/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
-
 
 import {
   Container,
@@ -48,7 +48,13 @@ const CheckOrder = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  const { orders, totalValues, userLogin } = useSelector(state => state);
+  const {
+    orders,
+    totalValues,
+    userLogin,
+    userPreferences,
+  } = useSelector(state => state);
+
   const { lastSize, values } = totalValues;
 
   async function loadCartItens() {
@@ -152,9 +158,8 @@ const CheckOrder = ({ navigation }) => {
     });
   };
 
-  const sendOrder = () => {
-    console.log(userLogin.user);
-    const { userEmail } = userLogin.user;
+  const sendOrder = async () => {
+    const { userEmail, name } = userLogin.user;
 
     api.post('/orders/history', {
       user: userEmail,
@@ -162,6 +167,48 @@ const CheckOrder = ({ navigation }) => {
         { totalCost: cost.totalCost },
       ],
     });
+
+
+    const formatedItems = cart.data.map((item) => {
+      const newOrder = {
+        image: item.image,
+        name: item.key,
+        size: lastSize[0],
+      };
+      return newOrder;
+    });
+
+
+    const formated = {
+      user: name,
+      logradouro: userPreferences.data.logradouro,
+      number: userPreferences.data.number,
+      bairro: userPreferences.data.bairro,
+      cep: userPreferences.data.cep,
+      order: {
+        totalCost: cost.totalCost,
+        observations: userPreferences.data.observations,
+        items: formatedItems,
+      },
+    };
+
+    try {
+      await api.post('/orders', { formated }).then(resp => console.log(resp));
+
+      showMessage({
+        message: 'Seu pedido foi enviado com sucesso!',
+        type: 'success',
+        backgroundColor: '#9DCA83',
+      });
+
+      navigation.navigate('Menu');
+    } catch (err) {
+      showMessage({
+        message: 'Oh, não!...Algo deu errado!',
+        type: 'error',
+        backgroundColor: '#E5293E',
+      });
+    }
   };
 
   return (

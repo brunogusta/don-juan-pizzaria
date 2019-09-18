@@ -6,6 +6,23 @@ const OrdersSchema = new mongoose.Schema([
       type: String,
       required: true
     },
+    logradouro: {
+      type: String,
+      required: true
+    },
+    number: {
+      type: String,
+      required: true
+    },
+    bairro: {
+      type: String,
+      required: true
+    },
+    cep: {
+      type: String,
+      required: true
+    },
+
     order: {
       orderDate: {
         type: Date,
