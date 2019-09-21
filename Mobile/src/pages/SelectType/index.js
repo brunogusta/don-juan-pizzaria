@@ -30,9 +30,9 @@ import DetailsModal from '../../utils/Animations/pizzaDetails';
 import { Types as costActions } from '../../store/ducks/totalValues';
 import { Types as orderActions } from '../../store/ducks/orders';
 
-import api from '../../services/api';
+import api, { uri } from '../../services/api';
 
-const SelectSize = ({ navigation }) => {
+const SelectType = ({ navigation }) => {
   const [events, useEvents] = useState({
     pizzaData: [],
   });
@@ -44,42 +44,39 @@ const SelectSize = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const nextPage = () => {
-    dispatch({
-      type: orderActions.SIZE_ADD,
-      payload: {
-        size: totalValues.lastSize[0],
-      },
-    });
-
     navigation.navigate('CheckOrder');
   };
 
 
   async function loadPizzas() {
-    const response = await api.get('/register').catch(err => console.log(err));
+    try {
+      const response = await api.get('/pizzas');
 
-    const pizzas = response.data.map((item) => {
-      const content = {
-        key: item.key,
-        cost: item.value,
-        details: item.details.map((value) => {
-          const ingredients = { key: value };
-          return ingredients;
-        }),
-        image: item.image,
-      };
-      return content;
-    });
+      const pizzas = response.data.map((item) => {
+        const content = {
+          key: item.key,
+          cost: item.value,
+          details: item.details.map((value) => {
+            const ingredients = { key: value };
+            return ingredients;
+          }),
+          image: item.image,
+        };
+        return content;
+      });
 
-    console.log(pizzas);
-    useEvents({
-      ...events,
-      pizzaData: pizzas,
-    });
+      useEvents({
+        ...events,
+        pizzaData: pizzas,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   useEffect(() => {
     loadPizzas();
+    console.log(uri);
   }, []);
 
 
@@ -123,7 +120,7 @@ const SelectSize = ({ navigation }) => {
       <PageHeader>
         <ReturnButton onPress={() => navigation.navigate('SelectSize')}>
           <IconMaterial name="keyboard-arrow-left" size={27} color="#fff" />
-          <PageHeaderText>Selecione a Pizza</PageHeaderText>
+          <PageHeaderText>Selecione a(s) Pizza(s)</PageHeaderText>
         </ReturnButton>
         {orders.pizzas.length !== 0
           ? (
@@ -145,7 +142,7 @@ const SelectSize = ({ navigation }) => {
                     ? <Icon name="checkbox-marked-circle" size={27} color="#06E206" /> : null}
                 </ItemBoxHeader>
                 <PizzaImage source={{
-                  uri: `http://10.10.10.6:3002/files/${item.image}`,
+                  uri: `${uri}files/${item.image}`,
                 }}
                 />
                 <MoreDetailsBox>
@@ -169,9 +166,9 @@ const SelectSize = ({ navigation }) => {
   );
 };
 
-SelectSize.propTypes = {
+SelectType.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 };
-export default SelectSize;
+export default SelectType;

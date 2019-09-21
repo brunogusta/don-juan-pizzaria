@@ -1,7 +1,8 @@
 export const Types = {
   SIZE_VALUE: 'totalValue/SIZE_VALUE',
   TYPE_VALUE: 'totalValue/TYPE_VALUE',
-  LAST_SIZE: 'totalValue/LAST_SIZE',
+  PIZZA_SIZE: 'totalValue/PIZZA_SIZE',
+  DRINK_SIZE: 'totalValue/DRINK_SIZE',
   CHANGE_VALUE: 'totalValue/CHANGE_VALUE',
   RESET_VALUES: 'totalValues/RESET_VALUES',
 };
@@ -9,7 +10,6 @@ export const Types = {
 
 const INITIAL_VALUES = {
   values: ['0,00'],
-  lastSize: [],
 };
 
 export default function totalValues(state = INITIAL_VALUES, action) {
@@ -22,8 +22,6 @@ export default function totalValues(state = INITIAL_VALUES, action) {
       return { ...state, values: [...action.payload] };
     case Types.RESET_VALUES:
       return { values: ['0,00'], lastSize: [''] };
-    case Types.LAST_SIZE:
-      return { ...state, lastSize: [action.payload] };
     default:
       return state;
   }

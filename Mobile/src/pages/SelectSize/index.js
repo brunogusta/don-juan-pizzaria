@@ -25,8 +25,9 @@ import {
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 
-import api from '../../services/api';
+import api, { uri } from '../../services/api';
 import { Types as costActions } from '../../store/ducks/totalValues';
+import { Types as orderActions } from '../../store/ducks/orders';
 
 const SelectSize = ({ navigation }) => {
   const [sizes, useSizes] = useState({
@@ -37,30 +38,32 @@ const SelectSize = ({ navigation }) => {
 
   const { totalValues } = useSelector(state => state);
   async function loadSizes() {
-    const response = await api.get('/register/sizes').catch(err => console.log(err.response));
-    console.log(response);
+    try {
+      const response = await api.get('/pizzas/sizes');
 
-    const size = response.data.map((item) => {
-      const content = {
-        name: item.name,
-        image: item.image,
-        cost: item.cost,
-      };
-      return content;
-    });
+      const size = response.data.map((item) => {
+        const content = {
+          name: item.name,
+          image: item.image,
+          cost: item.cost,
+        };
+        return content;
+      });
 
 
-    useSizes({
-      keys: totalValues.lastSize,
-      sizeData: size,
-    });
+      useSizes({
+        keys: [totalValues.pizzaSize],
+        sizeData: size,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
   useEffect(() => {
     loadSizes();
-
-    console.log(sizes.keys);
+    console.log(api);
   }, []);
 
 
@@ -74,9 +77,9 @@ const SelectSize = ({ navigation }) => {
       type: costActions.SIZE_VALUE,
       payload: newSize,
     });
-    console.log(key);
+
     dispatch({
-      type: costActions.LAST_SIZE,
+      type: orderActions.SIZE_ADD,
       payload: key.name,
     });
 
@@ -113,7 +116,7 @@ const SelectSize = ({ navigation }) => {
                   <Image
                     size={item.name}
                     source={{
-                      uri: `http://10.10.10.6:3002/files/${item.image}`,
+                      uri: `${uri}files/${item.image}`,
                     }}
                   />
                 </ImageContainer>
