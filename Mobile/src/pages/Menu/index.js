@@ -96,7 +96,7 @@ const Menu = ({ navigation }) => (
           </DescriptionContainer>
         </NavItem>
       </Navbtn>
-      <Navbtn>
+      <Navbtn onPress={() => navigation.navigate('SelectDrinks')}>
         <NavItem>
           <TypeImage source={Refrigerante} />
           <DescriptionContainer>
