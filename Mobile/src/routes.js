@@ -8,6 +8,7 @@ import Cart from './pages/Cart';
 import Menu from './pages/Menu';
 import OrderHistory from './pages/OrderHistory';
 import CheckOrder from './pages/CheckOrder';
+import SelectDrinks from './pages/SelectDrinks';
 
 const AppStack = createStackNavigator(
   {
@@ -17,6 +18,7 @@ const AppStack = createStackNavigator(
     Cart,
     OrderHistory,
     CheckOrder,
+    SelectDrinks,
   },
   {
     headerMode: 'none',
@@ -35,7 +37,7 @@ const AuthStack = createStackNavigator(
 
 const Type = createStackNavigator(
   {
-    SelectType,
+    SelectDrinks,
   },
   {
     headerMode: 'none',
