@@ -30,7 +30,7 @@ import {
   from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
-import api from '../../services/api';
+import api, { uri } from '../../services/api';
 
 import { Types as orderActions } from '../../store/ducks/orders';
 import { Types as costActions } from '../../store/ducks/totalValues';
@@ -55,48 +55,64 @@ const CheckOrder = ({ navigation }) => {
     userPreferences,
   } = useSelector(state => state);
 
-  const { lastSize, values } = totalValues;
+  const { values } = totalValues;
 
   async function loadCartItens() {
-    const { data } = await api.get('/cart').catch(err => console.log(err));
+    try {
+      const { data } = await api.get('/cart');
 
 
-    const cartItens = orders.pizzas.map((item) => {
-      const filtered = {
-        data: data.find(keyItem => keyItem.key === item),
-      };
-      return filtered;
-    });
+      const cartItens = orders.pizzas.map((item) => {
+        const filtered = {
+          data: data.find(keyItem => keyItem.key === item),
+        };
+        return filtered;
+      });
 
-    const formatArray = cartItens.map(object => object.data);
+      const formatArray = cartItens.map(object => object.data);
 
-    const toNumber = values.map((value) => {
-      let number = value.replace(',', '.');
-      number = parseFloat(number);
+      const pizzasOrder = formatArray.map((item) => {
+        const newItem = {
+          image: item.image,
+          name: item.key,
+          size: orders.sizes.pizzas,
+          cost: item.value,
+        };
+        return newItem;
+      });
 
-      return number;
-    });
+      const toNumber = values.map((value) => {
+        let number = value.replace(',', '.');
+        number = parseFloat(number);
 
-    const totalValue = toNumber.reduce((num1, num2) => num1 + num2);
-    const fixed = totalValue.toFixed(2);
+        return number;
+      });
 
-    const coinTransform = fixed.replace('.', ',');
+      const totalValue = toNumber.reduce((num1, num2) => num1 + num2);
+      const fixed = totalValue.toFixed(2);
 
-    useCart({
-      ...cart,
-      data: [...formatArray],
-    });
+      const coinTransform = fixed.replace('.', ',');
 
-    useCost({
-      ...cost,
-      totalCost: coinTransform,
-    });
+
+      useCart({
+        ...cart,
+        data: [...pizzasOrder, ...orders.drinks],
+      });
+
+      useCost({
+        ...cost,
+        totalCost: coinTransform,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 
   useEffect(() => {
     loadCartItens();
   }, []);
+
 
   useEffect(() => {
     if (cost.totalCost === values[0] || cost.totalCost === 'NaN') {
@@ -161,19 +177,11 @@ const CheckOrder = ({ navigation }) => {
   const sendOrder = async () => {
     const { userEmail, name } = userLogin.user;
 
-    api.post('/orders/history', {
-      user: userEmail,
-      history: [
-        { totalCost: cost.totalCost },
-      ],
-    });
-
-
     const formatedItems = cart.data.map((item) => {
       const newOrder = {
         image: item.image,
-        name: item.key,
-        size: lastSize[0],
+        name: item.name,
+        size: item.size,
       };
       return newOrder;
     });
@@ -193,7 +201,14 @@ const CheckOrder = ({ navigation }) => {
     };
 
     try {
-      await api.post('/orders', { formated }).then(resp => console.log(resp));
+      await api.post('/orders', { formated });
+
+      await api.post('/orders/history', {
+        user: userEmail,
+        history: [
+          { totalCost: cost.totalCost },
+        ],
+      });
 
       showMessage({
         message: 'Seu pedido foi enviado com sucesso!',
@@ -209,6 +224,13 @@ const CheckOrder = ({ navigation }) => {
         backgroundColor: '#E5293E',
       });
     }
+
+    dispatch({
+      type: costActions.RESET_VALUES,
+    });
+    dispatch({
+      type: orderActions.RESET_VALUES,
+    });
   };
 
   return (
@@ -226,13 +248,13 @@ const CheckOrder = ({ navigation }) => {
             renderItem={({ item }) => (
               <ItemBox>
                 <PizzaImage source={{
-                  uri: `http://10.10.10.6:3002/files/${item.image}`,
+                  uri: `${uri}files/${item.image}`,
                 }}
                 />
                 <DetailsBox>
-                  <Title>{`Pizza ${item.key}`}</Title>
-                  <SizeText>{`Tamanho: ${lastSize}`}</SizeText>
-                  <TextCost>{`R$${item.value}`}</TextCost>
+                  <Title>{`${item.name}`}</Title>
+                  <SizeText>{`Tamanho: ${item.size}`}</SizeText>
+                  <TextCost>{`R$${item.cost}`}</TextCost>
                 </DetailsBox>
                 <RemoveButtonContainer>
                   <RemoveButton onPress={() => removeItem(item)}>
@@ -242,6 +264,7 @@ const CheckOrder = ({ navigation }) => {
               </ItemBox>
             )}
             showsVerticalScrollIndicator={false}
+            keyExtractor={item => item.name.toString()}
           />
         </FlatlistContainer>
         <Footer>
