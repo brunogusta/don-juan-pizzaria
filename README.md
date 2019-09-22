@@ -23,7 +23,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <b>Images</b>
 </h1>
 
-## How To Use
+:zap: ## How To Use
 
 To clone and run this app you can use [Git](https://git-scm.com),[Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
 
