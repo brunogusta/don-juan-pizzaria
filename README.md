@@ -56,7 +56,7 @@ In the Server folder you must configure the connection to the MongoDB database. 
 
 ## :hearts: Credits
 
-- Special thanks to my friend and mentor [Weldel Freitas](https://github.com/wendelfreitas).
+- Special thanks to my friend and mentor [Wendel Freitas](https://github.com/wendelfreitas).
 
 ## :page_facing_up: License
 
@@ -64,4 +64,4 @@ MIT
 
 ---
 
-> Linkedin [Bruno Gustavo](https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
+> LinkedIn [Bruno Gustavo](https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
