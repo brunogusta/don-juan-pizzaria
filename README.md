@@ -44,7 +44,7 @@ In the Server folder you must configure the connection to the MongoDB database. 
 
 ```
 
-## Tech Stack
+## :bulb: Tech Stack
 
 <h1 align='center'>
   <img src="https://i.imgur.com/Qn1wK2z.png" alt="Animavita" height="" width="">
@@ -56,9 +56,9 @@ In the Server folder you must configure the connection to the MongoDB database. 
 - [MongoDB](https://www.mongodb.com/)
 - [Redux Saga](https://github.com/redux-saga/redux-saga/)
 
-## Credits
+## :hearts: Credits
 
-## License
+## :page_facing_up: License
 
 MIT
 
