@@ -25,7 +25,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 
 ## How To Use
 
-To clone and run this app you can use [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
+To clone and run this app you can use [Git](https://git-scm.com),[Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
 
 You will start by cloning or downloading this repository. After that we will start configuring the `Server` folder.
 
@@ -44,20 +44,6 @@ In the Server folder you must configure the connection to the MongoDB database. 
 
 ```
 
-```bash
-# Clone this repository
-$ git clone
-
-# Go into the repository
-$ cd electron-markdownify
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm start
-```
-
 ## Tech Stack
 
 <h1 align='center'>
@@ -70,13 +56,7 @@ $ npm start
 - [MongoDB](https://www.mongodb.com/)
 - [Redux Saga](https://github.com/redux-saga/redux-saga/)
 
-## Emailware
-
-Markdownify is an [emailware](https://en.wiktionary.org/wiki/emailware). Meaning, if you liked using this app or has helped you in anyway, I'd like you send me an email on <bullredeyes@gmail.com> about anything you'd want to say about this software. I'd really appreciate it!
-
-## Related
-
-[markdownify-web](https://github.com/amitmerchant1990/markdownify-web) - Web version of Markdownify
+## Credits
 
 ## License
 
@@ -84,4 +64,4 @@ MIT
 
 ---
 
-> Linkedin [@amit_merchant](https://twitter.com/amit_merchant)
+> Linkedin [Bruno Gustavo](https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
