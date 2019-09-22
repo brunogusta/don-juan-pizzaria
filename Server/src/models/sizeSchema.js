@@ -7,8 +7,7 @@ const SizeSchema = new mongoose.Schema({
   },
   pizzatype: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'PizzaType',
-    required: true
+    ref: 'PizzaType'
   },
   cost: {
     type: String,

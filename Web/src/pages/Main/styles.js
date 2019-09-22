@@ -22,6 +22,20 @@ export const OrderBox = styled.div`
   padding: 20px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
+export const RemoveOrder = styled.div`
+  display:flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 5px;
+
+  button {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #0b2031
+  }
+`;
+
 
 export const HeaderBox = styled.div`
   display: flex;

@@ -23,6 +23,8 @@ import {
   CompleteOrderButton,
   PizzaValue,
   ValueText,
+  ImageBox,
+  SizeText,
 } from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
@@ -72,7 +74,8 @@ const SelectDrinks = ({ navigation }) => {
         size: sizeType[0],
       });
     } catch (err) {
-      console.log(err);
+      const error = err.response;
+      console.log(error);
     }
   }
 
@@ -114,7 +117,7 @@ const SelectDrinks = ({ navigation }) => {
       dispatch({
         type: orderActions.KEY_ADD_DRINK,
         payload: {
-          drinks: drinks.items,
+          drinks: [item],
         },
       });
 
@@ -160,10 +163,11 @@ const SelectDrinks = ({ navigation }) => {
                   <Title>
                     <ItemText>{item.name}</ItemText>
                   </Title>
+                  <PizzaValue>
+                    <ValueText>R$ {item.cost}</ValueText>
+                    <SizeText>{`(${item.size})`}</SizeText>
+                  </PizzaValue>
                 </MoreDetailsBox>
-                <PizzaValue>
-                  <ValueText>R$ {item.cost}</ValueText>
-                </PizzaValue>
               </ItemBox>
             </SelectButton>
           )}

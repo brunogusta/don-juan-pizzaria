@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export const Container = styled.View`
@@ -14,7 +15,7 @@ export const BackgroundImage = styled.Image`
 `;
 
 export const PageHeader = styled.View`
-  padding: 0px 15px;
+  padding: 0px 18px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -69,7 +70,7 @@ export const ItemBox = styled.View.attrs({
 
   elevation: 3,
 })`
-  width: 360px;
+  width: 370px;
   height: 120px;
   background-color: #fff;
   border-radius: 5px;
@@ -81,8 +82,8 @@ export const ItemBox = styled.View.attrs({
 
 
 export const PizzaImage = styled.Image`
-  height: 80px;
-  width: 80px;
+  width: ${wp('20%')};
+  height: ${hp('11%')};
 `;
 
 export const DetailsBox = styled.View`

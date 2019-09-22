@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -37,6 +38,7 @@ const CheckOrder = ({ navigation }) => {
     error: '',
     cep: '',
     number: '',
+    observations: '',
   });
 
   const [cepInput, useCepInput] = useState({
@@ -49,6 +51,45 @@ const CheckOrder = ({ navigation }) => {
     totalCost: Number,
   });
 
+  const getLocalData = async () => {
+    const keys = ['logradouro', 'bairro', 'cep', 'number', 'observations'];
+
+    await AsyncStorage.multiGet(keys, (err, stores) => {
+      const data = stores.map((result, i, store) => {
+        console.log(store);
+        const savedForm = {
+          logradouro: store[0][1],
+          bairro: store[1][1],
+          cep: store[2][1],
+          number: store[3][1],
+          observations: store[4][1],
+        };
+
+        return savedForm;
+      });
+
+      const {
+        logradouro, bairro, cep, number, observations,
+      } = data[0];
+
+      if (!err) {
+        useUserData({
+          ...userData,
+          logradouro,
+          bairro,
+          number,
+          observations,
+        });
+
+
+        useCepInput({
+          cep,
+        });
+      }
+
+      console.log(number);
+    });
+  };
 
   useEffect(() => {
     const toNumber = totalValues.values.map((value) => {
@@ -69,7 +110,7 @@ const CheckOrder = ({ navigation }) => {
       totalCost: coinTransform,
     });
 
-    console.log(totalValues.values);
+    getLocalData();
   }, [totalValues]);
 
 
@@ -81,12 +122,30 @@ const CheckOrder = ({ navigation }) => {
     navigation.navigate('SelectType');
   };
 
+
+  const setLocalData = async (formatedData) => {
+    const {
+      observations, cep, number, logradouro, bairro,
+    } = formatedData;
+
+    try {
+      await AsyncStorage.setItem('logradouro', logradouro);
+      await AsyncStorage.setItem('bairro', bairro);
+      await AsyncStorage.setItem('observations', observations);
+      await AsyncStorage.setItem('number', number);
+      await AsyncStorage.setItem('cep', cep);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   const dispatch = useDispatch();
-  const handleSubmitValues = (values) => {
+  const handleSubmitValues = () => {
     const formatedData = {
-      observations: values.note,
+      observations: userData.observations,
       cep: cepInput.cep,
-      number: values.number,
+      number: userData.number,
       logradouro: userData.logradouro,
       bairro: userData.bairro,
     };
@@ -95,6 +154,9 @@ const CheckOrder = ({ navigation }) => {
       type: userActions.USER_DATA,
       payload: formatedData,
     });
+
+
+    setLocalData(formatedData);
 
     navigation.navigate('Cart');
   };
@@ -108,11 +170,26 @@ const CheckOrder = ({ navigation }) => {
     });
   };
 
+  const changeNumber = (num) => {
+    useUserData({
+      ...userData,
+      number: num,
+    });
+  };
+
+  const changeObservations = (text) => {
+    useUserData({
+      ...userData,
+      observations: text,
+    });
+  };
+
   const validateCep = (text) => {
     useCepInput({
       ...cepInput,
       cep: text,
     });
+
 
     if (text === '') {
       useUserData({
@@ -129,14 +206,16 @@ const CheckOrder = ({ navigation }) => {
   };
 
 
+  useEffect(() => {
+
+  }, []);
+
+
   return (
     <Container>
       <BackgroundImage source={HeaderImage} />
       <PageHeader>
-        <ReturnButton onPress={resetTotalValue}>
-          <Icon name="keyboard-arrow-left" size={27} color="#fff" />
-          <PageHeaderText>Finalizar o Pedido</PageHeaderText>
-        </ReturnButton>
+        <PageHeaderText>Dados para entrega</PageHeaderText>
         <PageHeaderText>{`R$ ${cost.totalCost}`}</PageHeaderText>
       </PageHeader>
       <FormContainer>
@@ -165,9 +244,9 @@ const CheckOrder = ({ navigation }) => {
               <NoteInput
                 placeholder="Alguma observação? Ex.Apto."
                 onBlur={() => setFieldTouched('note')}
-                value={values.note}
+                value={userData.observations}
                 multiline
-                onChangeText={handleChange('note')}
+                onChangeText={text => changeObservations(text)}
               />
               <CepInput
                 placeholder="Qual seu CEP?"
@@ -188,8 +267,8 @@ const CheckOrder = ({ navigation }) => {
                   placeholder="Nº"
                   keyboardType="number-pad"
                   onBlur={() => setFieldTouched('number')}
-                  value={values.number}
-                  onChangeText={handleChange('number')}
+                  value={userData.number}
+                  onChangeText={num => changeNumber(num)}
                 />
               </StreetLine>
               <NeighborhoodInput

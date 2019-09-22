@@ -25,7 +25,7 @@ import {
   NoOrders,
   OrderDetails,
   AdressBox,
-  AdressBorder,
+  RemoveOrder,
 } from './styles';
 import LogoImg from '../../images/logo@3x.png';
 
@@ -52,39 +52,47 @@ const Main = () => {
 
 
   const SetData = async () => {
-    const { data } = await api.get('/orders').catch(err => console.log(err.response));
+    try {
+      const { data } = await api.get('/orders');
 
-    console.log(data);
-    const formated = data.map((item, index) => {
-      const firstDate = parseISO(item.order.orderDate);
-
-
-      const date = formatRelative(firstDate, new Date(), { locale: ptBR });
+      const formated = data.map((item, index) => {
+        const firstDate = parseISO(item.order.orderDate);
 
 
-      const newData = {
-        key: item._id,
-        user: item.user,
-        orderNumber: index + 1,
-        orderDate: date,
-        totalCost: item.order.totalCost,
-        observations: item.order.observations,
-        items: item.order.items,
-        logradouro: item.logradouro,
-        number: item.number,
-        cep: item.cep,
-        bairro: item.bairro,
-      };
-
-      return newData;
-    });
-
-    formated.reverse();
-
-    console.log(formated);
+        const date = formatRelative(firstDate, new Date(), { locale: ptBR });
 
 
-    LoadOrders(formated);
+        const newData = {
+          key: item._id,
+          user: item.user,
+          orderNumber: index + 1,
+          orderDate: date,
+          totalCost: item.order.totalCost,
+          observations: item.order.observations,
+          items: item.order.items,
+          logradouro: item.logradouro,
+          number: item.number,
+          cep: item.cep,
+          bairro: item.bairro,
+        };
+
+        return newData;
+      });
+
+      formated.reverse();
+
+      LoadOrders(formated);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const RemoveItem = async (id) => {
+    try {
+      await api.delete(`orders/remove/${id}`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
 
@@ -94,9 +102,13 @@ const Main = () => {
     socket.on('order', () => {
       SetData();
     });
+
+    socket.on('remove', () => {
+      SetData();
+    });
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     SetData();
   }, []);
 
@@ -133,7 +145,10 @@ const Main = () => {
             <OrdersContainer>
               <h2>Últimos pedidos</h2>
               {userOrder.cards.map(item => (
-                <OrderBox key={item.key}>
+                <OrderBox key={item.orderNumber}>
+                  <RemoveOrder>
+                    <button type="button" onClick={() => RemoveItem(item.key)}><i className="fas fa-times" /></button>
+                  </RemoveOrder>
                   <HeaderBox>
                     <OrderDetails>
                       <p>
@@ -175,7 +190,7 @@ const Main = () => {
                   </HeaderBox>
                   <OrderItems>
                     {item.items.flat().map(item => (
-                      <Item>
+                      <Item key={item.name}>
                         <div>
                           <img src={`http://localhost:3002/files/${item.image}`} alt="pizza" />
                           <div>

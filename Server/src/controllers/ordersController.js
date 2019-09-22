@@ -48,6 +48,7 @@ router.post('/history', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log(req.body);
   try {
     const order = await ordersSchema
       .create(req.body.formated)
@@ -57,7 +58,7 @@ router.post('/', async (req, res) => {
 
     res.status(200).send(order);
   } catch (err) {
-    console.log(err);
+    console.log();
   }
 });
 
@@ -66,6 +67,25 @@ router.get('/', async (req, res) => {
     const order = await ordersSchema.find();
 
     res.send(order);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.delete('/remove/:orderid', async (req, res) => {
+  try {
+    const orderId = req.params.orderid;
+
+    await ordersSchema.findOneAndRemove({ _id: orderId }, function(err, model) {
+      if (err) {
+        console.log(err);
+        return res.send(err);
+      } else {
+        return res.send(model);
+      }
+    });
+
+    req.io.emit('remove');
   } catch (err) {
     console.log(err);
   }

@@ -33,8 +33,7 @@ const OrdersSchema = new mongoose.Schema([
         required: true
       },
       observations: {
-        type: String,
-        required: true
+        type: String
       },
       items: [
         {

@@ -1,6 +1,6 @@
 const mongoose = require('../database');
 
-const PizzaSchema = new mongoose.Schema(
+const DrinkSchema = new mongoose.Schema(
   {
     image: {
       type: String,
@@ -9,28 +9,22 @@ const PizzaSchema = new mongoose.Schema(
     sizes: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Size'
+        ref: 'DrinkSize'
       }
     ],
     value: {
       type: String,
       required: true
     },
-    key: {
+    name: {
       type: String,
       required: true,
       unique: true
-    },
-    details: [
-      {
-        type: String,
-        required: true
-      }
-    ]
+    }
   },
   { usePushEach: true }
 );
 
-const PizzaType = mongoose.model('PizzaType', PizzaSchema);
+const Drink = mongoose.model('Drink', DrinkSchema);
 
-module.exports = PizzaType;
+module.exports = Drink;

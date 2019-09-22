@@ -5,9 +5,9 @@ const authMiddleware = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
-router.post('/pizzas', async (req, res) => {
+router.post('/pizza', async (req, res) => {
   try {
     const { image, title, key, value, details, sizes } = req.body;
 
@@ -46,10 +46,10 @@ router.get('/', async (req, res) => {
 
 router.get('/sizes', async (req, res) => {
   const sizesData = await SizeTypes.find().then(data => {
-    const sizes = [data[0], data[3], data[1], data[2]];
+    const sizes = [data[0], data[1], data[2], data[3]];
     return sizes;
   });
 
   res.send(sizesData);
 });
-module.exports = app => app.use('/register', router);
+module.exports = app => app.use('/pizzas', router);

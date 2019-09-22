@@ -15,9 +15,9 @@ export const BackgroundImage = styled.Image`
 
 export const PageHeader = styled.View`
   flex-direction: row;
-  justify-content: space-between;
   padding: 0px 20px;
   align-items: center;
+  justify-content: space-between;
 `;
 
 
