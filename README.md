@@ -19,9 +19,9 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <a href="#license">License</a>
 </p>
 
-# :camera: Images</b>
+## :camera: Images</b>
 
-# :zap: How to use
+## :zap: How to use
 
 To clone and run this app you can use [Git](https://git-scm.com),[Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
 
@@ -42,7 +42,7 @@ In the Server folder you must configure the connection to the MongoDB database. 
 
 ```
 
-# :bulb: Tech Stack
+## :bulb: Tech Stack
 
 <h1 align='center'>
   <img src="https://i.imgur.com/Qn1wK2z.png" alt="Animavita" height="" width="">
@@ -54,9 +54,11 @@ In the Server folder you must configure the connection to the MongoDB database. 
 - [MongoDB](https://www.mongodb.com/)
 - [Redux Saga](https://github.com/redux-saga/redux-saga/)
 
-# :hearts: Credits
+## :hearts: Credits
 
-# :page_facing_up: License
+- Special thanks to my friend and mentor [Weldel Freitas](https://github.com/wendelfreitas).
+
+## :page_facing_up: License
 
 MIT
 
