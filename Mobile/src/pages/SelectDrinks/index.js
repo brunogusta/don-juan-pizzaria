@@ -23,7 +23,6 @@ import {
   CompleteOrderButton,
   PizzaValue,
   ValueText,
-  ImageBox,
   SizeText,
 } from './styles';
 
