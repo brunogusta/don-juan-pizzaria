@@ -36,7 +36,7 @@ const SelectSize = ({ navigation }) => {
   });
 
 
-  const { totalValues } = useSelector(state => state);
+  const { totalValues, orders } = useSelector(state => state);
   async function loadSizes() {
     try {
       const response = await api.get('/pizzas/sizes');
@@ -52,7 +52,7 @@ const SelectSize = ({ navigation }) => {
 
 
       useSizes({
-        keys: [totalValues.pizzaSize],
+        keys: [orders.sizes.pizzas],
         sizeData: size,
       });
     } catch (err) {

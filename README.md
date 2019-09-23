@@ -19,7 +19,18 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <a href="#license">License</a>
 </p>
 
-## :camera: Images</b>
+## :camera: Images & Gifs
+
+<p align='left'>
+  <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="300" width="">
+  <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="300" width="">
+  <img src="https://i.imgur.com/YrP6mdm.jpg"alt="Animavita" height="300" width="">
+  </br>
+  </br>
+  <img src="https://i.imgur.com/FEvUuOR.jpg"alt="Animavita" height="300" width="">
+  <img src="https://i.imgur.com/o8hUc3i.jpg"alt="Animavita" height="300" width="">
+  <img src="https://i.imgur.com/weCwpGm.jpg"alt="Animavita" height="300" width="">
+</>
 
 ## :zap: How to use
 
@@ -65,3 +76,7 @@ MIT
 ---
 
 > LinkedIn [Bruno Gustavo](https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile)
+
+<p align='center'>
+  Made with :hearts: by Bruno Gustavo
+</p>

@@ -53,7 +53,7 @@ export default function orders(state = INITIAL_VALUES, action) {
       };
     case Types.RESET_VALUES:
       return {
-        pizzas: [], drinks: [], sizez: { pizzas: '', drinks: '' },
+        pizzas: [], drinks: [], sizes: { pizzas: '', drinks: '' },
       };
     default:
       return state;

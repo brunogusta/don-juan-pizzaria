@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import { debounce } from 'debounce';
 
@@ -12,7 +11,6 @@ import {
   BackgroundImage,
   PageHeader,
   PageHeaderText,
-  ReturnButton,
   FormContainer,
   NoteInput,
   CepInput,
@@ -87,8 +85,11 @@ const CheckOrder = ({ navigation }) => {
         });
       }
 
+
       console.log(number);
     });
+
+    await AsyncStorage.multiRemove(keys);
   };
 
   useEffect(() => {

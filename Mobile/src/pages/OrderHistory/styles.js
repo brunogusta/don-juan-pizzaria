@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 40px 0px;
+  padding: 20px 0px;
 `;
 
 
@@ -16,7 +16,7 @@ export const BackgroundImage = styled.Image`
 export const PageHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 0px 20px;
+  padding: 0px 18px;
   align-items: center;
 `;
 

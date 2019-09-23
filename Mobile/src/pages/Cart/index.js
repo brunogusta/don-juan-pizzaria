@@ -128,17 +128,18 @@ const CheckOrder = ({ navigation }) => {
 
 
   const removeItem = (item) => {
-    const filtered = cart.data.filter(data => data.key !== item.key);
+    console.log(item);
+    const filtered = cart.data.filter(data => data.name !== item.name);
 
-    const haveCost = values.find(costItem => costItem === item.value);
+    const haveCost = values.find(costItem => costItem === item.cost);
 
     const costSeted = values.filter(card => card !== haveCost);
 
-    const keys = filtered.map(pizza => pizza.key);
+    const keys = filtered.map(pizza => pizza.name);
 
 
     let total = cost.totalCost.replace(',', '.');
-    let itemCost = item.value.replace(',', '.');
+    let itemCost = item.cost.replace(',', '.');
 
     total = parseFloat(total);
 

@@ -94,9 +94,6 @@ const Register = (props) => {
       {/* eslint-disable-next-line react-native/no-inline-styles */}
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <Container>
-          <ContainerLogo>
-            <Logo source={Logoimg} />
-          </ContainerLogo>
           <Formik
             initialValues={{
               email: '', name: '', password: '', confirmPassword: '',

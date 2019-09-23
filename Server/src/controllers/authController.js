@@ -13,10 +13,14 @@ function generateToken(params = {}) {
 }
 
 router.post('/register', async (req, res) => {
-  const { email } = req.body;
+  const { email, name } = req.body;
   try {
     if (await User.findOne({ email })) {
       return res.status(400).send('Usuário já existe.');
+    }
+
+    if (await User.findOne({ name })) {
+      return res.status(400).send('O nome informado já existe.');
     }
 
     const user = await User.create(req.body);
