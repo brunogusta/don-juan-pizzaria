@@ -24,12 +24,12 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 <p align='center'>
   <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400" width="">
   <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/YrP6mdm.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/0M5VjoV.jpg"alt="Animavita" height="400" width="">
   </br>
   </br> 
-  <img src="https://i.imgur.com/FEvUuOR.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/o8hUc3i.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/LJtms24.jpg"alt="Animavita" height="400" width="">
   <img src="https://i.imgur.com/weCwpGm.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/4cgLPSH.jpg"alt="Animavita" height="400" width="">
 </>
 
 ## :zap: How to use
