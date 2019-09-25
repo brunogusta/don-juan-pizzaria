@@ -16,7 +16,7 @@ export const PageHeader = styled.View`
 export const PageHeaderText = styled.Text`
   color: #fff;
   font-weight: bold;
-  font-size: 17px;
+  font-size: ${hp('2.8%')};
   `;
 
 export const CompleteOrderButton = styled.TouchableOpacity`

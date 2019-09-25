@@ -24,12 +24,12 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 <p align='center'>
   <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400" width="">
   <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/weCwpGm.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="Animavita" height="400" width="">
   </br>
   </br> 
-  <img src="https://i.imgur.com/0M5VjoV.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/LJtms24.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/4cgLPSH.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/xJxsOCl.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/Z061083.jpg"alt="Animavita" height="400" width="">
 </>
 
 ## :zap: How to use
@@ -78,5 +78,5 @@ MIT
 > LinkedIn [Bruno Gustavo](https://www.linkedin.com/in/bruno-gustavo-90502a13a/)
 
 <p align='center'>
-  Made with :hearts: by Bruno Gustavo
+  Made with :hearts: by Bruno Gustavo.
 </p>

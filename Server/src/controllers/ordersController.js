@@ -3,8 +3,6 @@ const historySchema = require('../models/historySchema');
 const ordersSchema = require('../models/ordersSchema');
 const authMiddleware = require('../middlewares/auth');
 
-const helpers = require('../utils/helpers');
-
 const router = express.Router();
 
 router.use(authMiddleware);

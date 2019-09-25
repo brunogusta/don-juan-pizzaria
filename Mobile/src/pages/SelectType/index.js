@@ -125,7 +125,7 @@ const SelectType = ({ navigation }) => {
         {orders.pizzas.length !== 0
           ? (
             <CompleteOrderButton onPress={nextPage}>
-              <PageHeaderText>Finalizar Pedido</PageHeaderText>
+              <PageHeaderText>Finalizar</PageHeaderText>
               <IconMaterial name="keyboard-arrow-right" size={27} color="#fff" />
             </CompleteOrderButton>
           )

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export const Container = styled.View`
@@ -24,7 +25,7 @@ export const PageHeader = styled.View`
 export const PageHeaderText = styled.Text`
   color: #fff;
   font-weight: bold;
-  font-size: 20px;
+  font-size: ${hp('2.8%')};
   `;
 
 export const ReturnButton = styled.TouchableOpacity`

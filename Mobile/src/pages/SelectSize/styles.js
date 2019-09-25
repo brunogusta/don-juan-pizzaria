@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 
 export const ImageBackground = styled.ImageBackground`
@@ -19,7 +20,7 @@ export const Header = styled.View`
 `;
 
 export const TextHeader = styled.Text`
-  font-size: 20px;
+  font-size: ${hp('3%')};
   font-weight: bold;
   color: #fff;
   margin-left: 5px;

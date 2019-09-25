@@ -26,7 +26,7 @@ export const PageHeader = styled.View`
 export const PageHeaderText = styled.Text`
   color: #fff;
   font-weight: bold;
-  font-size: 25px;
+  font-size: ${hp('2.8%')};
   align-self: center;
   `;
 export const TotalValueText = styled.Text`
