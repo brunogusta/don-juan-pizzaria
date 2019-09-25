@@ -27,9 +27,9 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="Animavita" height="400" width="">
   </br>
   </br> 
-  <img src="https://i.imgur.com/xJxsOCl.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/UN1JmVY.jpg"alt="Animavita" height="400" width="">
   <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/Z061083.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/PHQUNos.jpg"alt="Animavita" height="400" width="">
 </>
 
 ## :zap: How to use
