@@ -32,7 +32,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400">
 </>
 <p align='center'>
-  <img src="https://i.imgur.com/r7PtYJy.png"alt="Animavita"  width="685">
+  <img src="https://i.imgur.com/eGTdRHz.png"alt="Animavita"  width="685">
 </p>
 <p align='center'>
   <img src="https://i.imgur.com/0c2t6Ha.png"alt="Animavita"  width="685">
