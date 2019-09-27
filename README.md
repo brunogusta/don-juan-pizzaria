@@ -21,7 +21,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 
 ## :camera: Images & Gifs
 
-### Mobile Version
+### Mobile
 
 <p align='center'>
   <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400">
@@ -34,7 +34,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400">
 </p>
 
-### Web Version
+### Web
 
 <p align='center'>
   <img src="https://i.imgur.com/eGTdRHz.png"alt="Animavita"  width="685">
@@ -43,7 +43,9 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <img src="https://i.imgur.com/mOhAn4U.png"alt="Animavita"  width="685">
 </p>
 
-## :zap: How to use
+<div id='how-to-use'>
+  <h1>:zap: How to use</h1>
+</div>
 
 To clone and run this app you can use [Git](https://git-scm.com),[Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
 
