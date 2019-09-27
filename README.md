@@ -21,6 +21,8 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 
 ## :camera: Images & Gifs
 
+### Mobile Version
+
 <p align='center'>
   <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400">
   <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400">
@@ -30,7 +32,10 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
   <img src="https://i.imgur.com/UN1JmVY.jpg"alt="Animavita" height="400">
   <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400">
   <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400">
-</>
+</p>
+
+### Web Version
+
 <p align='center'>
   <img src="https://i.imgur.com/eGTdRHz.png"alt="Animavita"  width="685">
 </p>
