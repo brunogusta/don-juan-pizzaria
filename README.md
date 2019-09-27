@@ -67,7 +67,7 @@ In the Server folder you must configure the connection to the MongoDB database. 
 ```
 
 <div id='tech-stack'>
-  <h2>:zap: Tech Stack</h2>
+  <h2>:bulb: Tech Stack</h2>
 </div>
 
 <h1 align='center'>
