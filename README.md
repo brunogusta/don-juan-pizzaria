@@ -22,15 +22,19 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 ## :camera: Images & Gifs
 
 <p align='center'>
-  <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400">
+  <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400">
+  <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="Animavita" height="400">
   </br>
   </br> 
-  <img src="https://i.imgur.com/UN1JmVY.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400" width="">
-  <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400" width="">
+  <img src="https://i.imgur.com/UN1JmVY.jpg"alt="Animavita" height="400">
+  <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400">
+  <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400">
 </>
+<p align='center'>
+  <img src="https://i.imgur.com/r7PtYJy.png"alt="Animavita" height="400">
+  <img src="https://i.imgur.com/0c2t6Ha.png"alt="Animavita" height="400">
+</p>
 
 ## :zap: How to use
 
