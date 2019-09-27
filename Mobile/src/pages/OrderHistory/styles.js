@@ -4,7 +4,6 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 export const Container = styled.View`
   flex: 1;
-  padding: 20px 0px;
 `;
 
 
