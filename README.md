@@ -44,7 +44,7 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 </p>
 
 <div id='how-to-use'>
-  <h1>:zap: How to use</h1>
+  <h2>:zap: How to use</h2>
 </div>
 
 To clone and run this app you can use [Git](https://git-scm.com),[Node.js](https://nodejs.org/en/download/), [React-Native](https://github.com/facebook/react-native), [React](https://github.com/facebook/react), [MongoDB](https://www.mongodb.com/) and some Android device simulator or run on some physical Android device. Check out this [Rocketseat](https://docs.rocketseat.dev/ambiente-react-native/introducao) page to learn how to set up your environment to run a mobile version with React Native.
@@ -66,7 +66,9 @@ In the Server folder you must configure the connection to the MongoDB database. 
 
 ```
 
-## :bulb: Tech Stack
+<div id='tech-stack'>
+  <h2>:zap: Tech Stack</h2>
+</div>
 
 <h1 align='center'>
   <img src="https://i.imgur.com/Qn1wK2z.png" alt="Animavita" height="" width="">
@@ -78,11 +80,15 @@ In the Server folder you must configure the connection to the MongoDB database. 
 - [MongoDB](https://www.mongodb.com/)
 - [Redux Saga](https://github.com/redux-saga/redux-saga/)
 
-## :hearts: Credits
+<div id='credits'>
+  <h2>:hearts: Credits</h2>
+</div>
 
 - Special thanks to my friend and mentor [Wendel Freitas](https://github.com/wendelfreitas).
 
-## :page_facing_up: License
+<div id='license'>
+  <h2>:page_facing_up: License</h2>
+</div>
 
 MIT
 
