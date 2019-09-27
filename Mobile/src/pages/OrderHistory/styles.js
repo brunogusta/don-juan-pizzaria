@@ -17,7 +17,7 @@ export const BackgroundImage = styled.Image`
 export const PageHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 0px 18px;
+  padding: 20px;
   align-items: center;
 `;
 
@@ -35,7 +35,6 @@ export const ReturnButton = styled.TouchableOpacity`
 
 export const FlatlistContainer = styled.View`
   flex-grow: 1;
-  margin-top: 50px;
 `;
 
 export const ItemBox = styled.View.attrs({
