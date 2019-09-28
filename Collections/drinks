@@ -1,0 +1,2 @@
+{"_id":{"$oid":"5d858ba5afe42c6062463e72"},"sizes":[{"$oid":"5d858ba5afe42c6062463e73"}],"image":"coca.png","name":"Coca-Cola","value":"4,50","__v":1}
+{"_id":{"$oid":"5d871cb6330ddd5f5e58d4f6"},"sizes":[{"$oid":"5d871cb6330ddd5f5e58d4f7"}],"image":"kuat.png","name":"Kuat","value":"3,50","__v":1}

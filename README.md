@@ -53,7 +53,7 @@ You will start by cloning or downloading this repository. After that we will sta
 
 Don't forget to install the dependencies of each folder using your preferred package manager (npm, yarn etc).
 
-In the Server folder you must configure the connection to the MongoDB database. In the `database` folder change the following location with your local database url or MongDB Atlas url:
+In the Server folder you must configure the connection to the MongoDB database(you must have MongoDB installed or use MongoDB Altas). In the `database` folder change the following location with your local database url or MongDB Atlas url:
 
 ```bash
   #src/database/index.js

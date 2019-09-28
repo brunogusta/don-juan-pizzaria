@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5d7d177d8fa6735a608a18ff"},"name":"Pequena","cost":"19,00","image":"tamanho-p.png","pizzatype":{"$oid":"5d7d177d8fa6735a608a18fe"},"__v":0}
+{"_id":{"$oid":"5d7d177d8fa6735a608a1900"},"name":"Média","cost":"22,00","image":"tamanho-m.png","pizzatype":{"$oid":"5d7d177d8fa6735a608a18fe"},"__v":0}
+{"_id":{"$oid":"5d7d177d8fa6735a608a1901"},"name":"Grande","cost":"39,00","image":"tamanho-g.png","pizzatype":{"$oid":"5d7d177d8fa6735a608a18fe"},"__v":0}
+{"_id":{"$oid":"5d7d17fc8fa6735a608a1909"},"name":"Gigante","cost":"45,00","image":"tamanho-gg.png","pizzatype":{"$oid":"5d7d177d8fa6735a608a18fe"},"__v":0}

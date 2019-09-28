@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5d7d15350ef0cc55926f36d9"},"admin":true,"email":"admin@admin.com","password":"$2a$10$adH.m4lAGD98obu3sej1Ru8djKugOR4FscZsOY5SA9cJFwNvFu.yO","name":"Fabio","createdAt":{"$date":"2019-09-14T16:28:37.875Z"},"__v":0}
