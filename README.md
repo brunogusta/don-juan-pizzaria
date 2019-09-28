@@ -85,7 +85,7 @@ Replace PASSWORD with the password for the admin user, DATABASE with the name of
 
 Use the files in the Collections folder by specifying the relative path at FILENAME.
 
-After that, the application backend is complete.
+After that, the Back-End is complete.
 
 In the Mobile and Web folder you just need to change the ip in the `services/api.js` folder to your local ip and the application is ready for use.
 
