@@ -89,6 +89,12 @@ After that, the Back-End is complete.
 
 In the Mobile and Web folder you just need to change the ip in the `services/api.js` folder to your local ip and the application is ready for use.
 
+Note: The web version can only be used by admin users, the user collection already has an admin account and must be used to login.
+
+Email: `admin@admin.com`
+
+Password: `admin`
+
 <div id='tech-stack'>
   <h2>:bulb: Tech Stack</h2>
 </div>
