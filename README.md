@@ -72,9 +72,9 @@ That done, let's add collections to the database, so you have to use the followi
 mongoimport --db dbName --collection collectionName --file fileName.json
 ```
 
-In filename.json use the files contained in the Collections folder of this repository. Enter the relative path: `~/Desktop/PizzaHut-master/Collections/pizzatypes`. Do this for all collections.
+In filename.json use the files contained in the Collections folder of this repository. Use the relative path for --file: `~/Desktop/PizzaHut-master/Collections/pizzatypes`. Do this for all collections.
 
-In case you use MongoDB Atlas use the following command:
+In case you use MongoDB Atlas:
 
 ```
 mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gxfgl.mongodb.net:27017,cluster0-shard-00-01-gxfgl.mongodb.net:27017,cluster0-shard-00-02-gxfgl.mongodb.net:27017 --ssl --username desktop_user32 --password <PASSWORD> --authenticationDatabase admin --db <DATABASE> --collection <COLLECTION> --type <FILETYPE> --file <FILENAME>
