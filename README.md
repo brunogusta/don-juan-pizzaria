@@ -53,7 +53,7 @@ You will start by cloning or downloading this repository. After that we will sta
 
 Don't forget to install the dependencies of each folder using your preferred package manager (npm, yarn etc).
 
-In the Server folder you must configure the connection to the MongoDB database(you must have MongoDB installed or use MongoDB Altas). In the `database` folder change the following location with your local database url or MongDB Atlas url:
+In the Server folder you must configure the connection to the MongoDB database(you must have MongoDB installed or use MongoDB Atlas). In the `database` folder change the following location with your local database url or MongDB Atlas url:
 
 ```bash
   #src/database/index.js
@@ -65,6 +65,29 @@ In the Server folder you must configure the connection to the MongoDB database(y
   .catch(error => console.log(error));
 
 ```
+
+That done, let's add collections to the database, so you have to use the following command in the terminal for local mongoDB:
+
+```
+mongoimport --db dbName --collection collectionName --file fileName.json
+```
+
+In filename.json use the files contained in the Collections folder of this repository. Enter the relative path: `~/Desktop/PizzaHut-master/Collections/pizzatypes`. Do this for all collections.
+
+In case you use MongoDB Atlas use the following command:
+
+```
+mongoimport --host Cluster0-shard-0/cluster0-shard-00-00-gxfgl.mongodb.net:27017,cluster0-shard-00-01-gxfgl.mongodb.net:27017,cluster0-shard-00-02-gxfgl.mongodb.net:27017 --ssl --username desktop_user32 --password <PASSWORD> --authenticationDatabase admin --db <DATABASE> --collection <COLLECTION> --type <FILETYPE> --file <FILENAME>
+
+```
+
+Replace PASSWORD with the password for the admin user, DATABASE with the name of the database you wish to import/export to your cluster, and COLLECTION with the name of the collection you wish to import/export to your cluster. Replace FILETYPE with json or csv to specify the file type. Where applicable, replace FILENAME with the location and name of the output file (for export) or data source (for import).
+
+Use the files in the Collections folder by specifying the relative path at FILENAME.
+
+After that, the application backend is complete.
+
+In the Mobile and Web folder you just need to change the ip in the `services/api.js` folder to your local ip and the application is ready for use.
 
 <div id='tech-stack'>
   <h2>:bulb: Tech Stack</h2>
