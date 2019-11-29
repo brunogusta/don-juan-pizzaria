@@ -20,8 +20,7 @@ import {
   StreetLine,
   FinalizeBtn,
   FinalizeBtnText,
-}
-  from './styles';
+} from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 
@@ -43,7 +42,6 @@ const CheckOrder = ({ navigation }) => {
     cep: '',
   });
 
-
   const { totalValues } = useSelector(state => state);
   const [cost, useTotalValue] = useState({
     totalCost: Number,
@@ -54,7 +52,6 @@ const CheckOrder = ({ navigation }) => {
 
     await AsyncStorage.multiGet(keys, (err, stores) => {
       const data = stores.map((result, i, store) => {
-        console.log(store);
         const savedForm = {
           logradouro: store[0][1],
           bairro: store[1][1],
@@ -79,14 +76,10 @@ const CheckOrder = ({ navigation }) => {
           observations,
         });
 
-
         useCepInput({
           cep,
         });
       }
-
-
-      console.log(number);
     });
 
     await AsyncStorage.multiRemove(keys);
@@ -114,15 +107,11 @@ const CheckOrder = ({ navigation }) => {
     getLocalData();
   }, [totalValues]);
 
+  // const resetTotalValue = () => {
+  //   const sizeCost = totalValues.values.find(value => value[0]);
 
-  const resetTotalValue = () => {
-    const sizeCost = totalValues.values.find(value => value[0]);
-
-    console.log(sizeCost);
-
-    navigation.navigate('SelectType');
-  };
-
+  //   navigation.navigate('SelectType');
+  // };
 
   const setLocalData = async (formatedData) => {
     const {
@@ -140,7 +129,6 @@ const CheckOrder = ({ navigation }) => {
     }
   };
 
-
   const dispatch = useDispatch();
   const handleSubmitValues = () => {
     const formatedData = {
@@ -155,7 +143,6 @@ const CheckOrder = ({ navigation }) => {
       type: userActions.USER_DATA,
       payload: formatedData,
     });
-
 
     setLocalData(formatedData);
 
@@ -191,7 +178,6 @@ const CheckOrder = ({ navigation }) => {
       cep: text,
     });
 
-
     if (text === '') {
       useUserData({
         logradouro: '',
@@ -202,14 +188,12 @@ const CheckOrder = ({ navigation }) => {
 
     const validacep = /^[0-8]{8}$/;
     if (validacep.test(text)) {
-      debounce(cepApi.get(`/${text}/json/`).then(({ data }) => setAdrees(data)), 500);
+      debounce(
+        cepApi.get(`/${text}/json/`).then(({ data }) => setAdrees(data)),
+        500,
+      );
     }
   };
-
-
-  useEffect(() => {
-
-  }, []);
 
 
   return (
@@ -222,25 +206,18 @@ const CheckOrder = ({ navigation }) => {
       <FormContainer>
         <Formik
           initialValues={{
-            note: '', cep: '', number: '',
+            note: '',
+            cep: '',
+            number: '',
           }}
           onSubmit={values => handleSubmitValues(values)}
           validationSchema={yup.object().shape({
-            note: yup
-              .string(),
-            cep: yup
-              .number()
-              .required('O CEP é obrigatório.'),
-            number: yup
-              .number()
-              .required('O número é obrigatório'),
+            note: yup.string(),
+            cep: yup.number().required('O CEP é obrigatório.'),
+            number: yup.number().required('O número é obrigatório'),
           })}
         >
-          {({
-            values,
-            handleChange,
-            setFieldTouched,
-          }) => (
+          {({ values, handleChange, setFieldTouched }) => (
             <>
               <NoteInput
                 placeholder="Alguma observação? Ex.Apto."
@@ -280,9 +257,7 @@ const CheckOrder = ({ navigation }) => {
                 onChangeText={handleChange('neighborhood')}
               />
               <FinalizeBtn onPress={() => handleSubmitValues(values)}>
-                <FinalizeBtnText>
-                Finalizar
-                </FinalizeBtnText>
+                <FinalizeBtnText>Finalizar</FinalizeBtnText>
               </FinalizeBtn>
             </>
           )}

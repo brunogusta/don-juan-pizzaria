@@ -63,7 +63,6 @@ const SelectSize = ({ navigation }) => {
 
   useEffect(() => {
     loadSizes();
-    console.log(api);
   }, []);
 
 

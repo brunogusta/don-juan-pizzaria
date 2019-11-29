@@ -75,7 +75,6 @@ const Register = (props) => {
     });
   }, [userRegister.error || userRegister.success]);
 
-  console.log(useEvents);
 
   return (
     <ImageBackground source={BackgroundImage}>

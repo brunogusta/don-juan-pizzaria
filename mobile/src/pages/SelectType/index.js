@@ -76,7 +76,6 @@ const SelectType = ({ navigation }) => {
 
   useEffect(() => {
     loadPizzas();
-    console.log(uri);
   }, []);
 
 

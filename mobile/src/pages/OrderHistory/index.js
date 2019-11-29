@@ -72,7 +72,6 @@ const CheckOrder = ({ navigation }) => {
   }, []);
 
   const removeOrder = async (key) => {
-    console.log(key);
     await api.delete(`orders/history/${userLogin.user.userEmail}/${key}`);
 
     loadHistory();

@@ -26,15 +26,13 @@ import {
   SizeText,
   RemoveButton,
   RemoveButtonContainer,
-}
-  from './styles';
+} from './styles';
 
 import HeaderImage from '../../assets/images/header-background2x.png';
 import api, { uri } from '../../services/api';
 
 import { Types as orderActions } from '../../store/ducks/orders';
 import { Types as costActions } from '../../store/ducks/totalValues';
-
 
 const CheckOrder = ({ navigation }) => {
   const [cart, useCart] = useState({
@@ -45,22 +43,19 @@ const CheckOrder = ({ navigation }) => {
     totalCost: '',
   });
 
-
   const dispatch = useDispatch();
 
   const {
-    orders,
-    totalValues,
-    userLogin,
-    userPreferences,
-  } = useSelector(state => state);
+    orders, totalValues, userLogin, userPreferences,
+  } = useSelector(
+    state => state,
+  );
 
   const { values } = totalValues;
 
   async function loadCartItens() {
     try {
       const { data } = await api.get('/cart');
-
 
       const cartItens = orders.pizzas.map((item) => {
         const filtered = {
@@ -93,7 +88,6 @@ const CheckOrder = ({ navigation }) => {
 
       const coinTransform = fixed.replace('.', ',');
 
-
       useCart({
         ...cart,
         data: [...pizzasOrder, ...orders.drinks],
@@ -108,11 +102,9 @@ const CheckOrder = ({ navigation }) => {
     }
   }
 
-
   useEffect(() => {
     loadCartItens();
   }, []);
-
 
   useEffect(() => {
     if (cost.totalCost === values[0] || cost.totalCost === 'NaN') {
@@ -126,9 +118,7 @@ const CheckOrder = ({ navigation }) => {
     }
   }, [cost.totalCost]);
 
-
   const removeItem = (item) => {
-    console.log(item);
     const filtered = cart.data.filter(data => data.name !== item.name);
 
     const haveCost = values.find(costItem => costItem === item.cost);
@@ -137,14 +127,12 @@ const CheckOrder = ({ navigation }) => {
 
     const keys = filtered.map(pizza => pizza.name);
 
-
     let total = cost.totalCost.replace(',', '.');
     let itemCost = item.cost.replace(',', '.');
 
     total = parseFloat(total);
 
     itemCost = parseFloat(itemCost);
-
 
     const totalValue = total - itemCost;
     const fixed = totalValue.toFixed(2);
@@ -154,7 +142,6 @@ const CheckOrder = ({ navigation }) => {
       ...cost,
       totalCost: coinTransform,
     });
-
 
     useCart({
       ...cart,
@@ -166,7 +153,6 @@ const CheckOrder = ({ navigation }) => {
       payload: {
         pizzas: keys,
       },
-
     });
 
     dispatch({
@@ -187,7 +173,6 @@ const CheckOrder = ({ navigation }) => {
       return newOrder;
     });
 
-
     const formated = {
       user: name,
       logradouro: userPreferences.data.logradouro,
@@ -206,9 +191,7 @@ const CheckOrder = ({ navigation }) => {
 
       await api.post('/orders/history', {
         user: userEmail,
-        history: [
-          { totalCost: cost.totalCost },
-        ],
+        history: [{ totalCost: cost.totalCost }],
       });
 
       showMessage({
@@ -248,9 +231,10 @@ const CheckOrder = ({ navigation }) => {
             data={cart.data}
             renderItem={({ item }) => (
               <ItemBox>
-                <PizzaImage source={{
-                  uri: `${uri}files/${item.image}`,
-                }}
+                <PizzaImage
+                  source={{
+                    uri: `${uri}files/${item.image}`,
+                  }}
                 />
                 <DetailsBox>
                   <Title>{`${item.name}`}</Title>
@@ -282,7 +266,6 @@ const CheckOrder = ({ navigation }) => {
   );
 };
 
-
 CheckOrder.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
@@ -290,7 +273,6 @@ CheckOrder.propTypes = {
 };
 
 export default CheckOrder;
-
 
 const style = StyleSheet.create({
   flatList: {
