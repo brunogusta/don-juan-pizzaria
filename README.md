@@ -2,7 +2,7 @@
   <br>
   <img src="https://i.imgur.com/DrABlj7.png" alt="DonJuan" height="125" width="125">
   <br>
-  <b>Pizza Hut</b>
+  <b>Don Juan</b>
   <br>
 </h1>
 
