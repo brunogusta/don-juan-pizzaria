@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/DrABlj7.png" alt="Animavita" height="125" width="125">
+  <img src="https://i.imgur.com/DrABlj7.png" alt="DonJuan" height="125" width="125">
   <br>
   <b>Pizza Hut</b>
   <br>
@@ -24,23 +24,23 @@ This is my first app and was made to meet a challenge proposed in one of Rockets
 ### Mobile
 
 <p align='center'>
-  <img src="https://i.imgur.com/syTMuQZ.gif" alt="Animavita" height="400">
-  <img src="https://i.imgur.com/XkXmgwF.gif" alt="Animavita" height="400">
-  <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="Animavita" height="400">
+  <img src="https://i.imgur.com/syTMuQZ.gif" alt="DonJuan" height="400">
+  <img src="https://i.imgur.com/XkXmgwF.gif" alt="DonJuan" height="400">
+  <img src="https://i.imgur.com/VQ1hZaw.jpg"alt="DonJuan" height="400">
   </br>
   </br> 
-  <img src="https://i.imgur.com/UN1JmVY.jpg"alt="Animavita" height="400">
-  <img src="https://i.imgur.com/BpfHI44.jpg"alt="Animavita" height="400">
-  <img src="https://i.imgur.com/IFgOcvl.jpg"alt="Animavita" height="400">
+  <img src="https://i.imgur.com/UN1JmVY.jpg"alt="DonJuan" height="400">
+  <img src="https://i.imgur.com/BpfHI44.jpg"alt="DonJuan" height="400">
+  <img src="https://i.imgur.com/IFgOcvl.jpg"alt="DonJuan" height="400">
 </p>
 
 ### Web
 
 <p align='center'>
-  <img src="https://i.imgur.com/eGTdRHz.png"alt="Animavita"  width="685">
+  <img src="https://i.imgur.com/mOhAn4U.png"alt="DonJuan"  width="685">
 </p>
 <p align='center'>
-  <img src="https://i.imgur.com/mOhAn4U.png"alt="Animavita"  width="685">
+  <img src="https://i.imgur.com/2I0j12l.png"alt="DonJuan"  width="685">
 </p>
 
 <div id='how-to-use'>
@@ -100,7 +100,7 @@ Password: `admin`
 </div>
 
 <h1 align='center'>
-  <img src="https://i.imgur.com/Qn1wK2z.png" alt="Animavita" height="" width="">
+  <img src="https://i.imgur.com/Qn1wK2z.png" alt="DonJuan" height="" width="">
 </h1>
 
 - [React](https://github.com/facebook/react) _(100% [Hooks](https://reactjs.org/docs/hooks-intro.html), zero classes)_
