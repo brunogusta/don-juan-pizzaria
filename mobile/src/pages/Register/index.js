@@ -107,11 +107,10 @@ const Register = (props) => {
               password: Yup.string()
                 .min(1, 'A senha deve ter no mínimo 6 caracteres.')
                 .required('A senha é obrigatória.'),
-              confirmPassword: Yup.string().test('', 'As senhas não são idênticas', function test(
-                value,
-              ) {
-                return this.parent.password === value;
-              }),
+              confirmPassword: Yup.string().test('', 'As senhas não são idênticas',
+                function test(value) {
+                  return this.parent.password === value;
+                }),
             })}
           >
             {({
