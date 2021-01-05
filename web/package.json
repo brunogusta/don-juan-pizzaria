@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.10.2",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "connected-react-router": "^6.5.2",
     "date-fns": "^2.2.1",
     "formik": "^1.5.8",
