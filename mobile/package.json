@@ -34,7 +34,7 @@
     "redux-saga": "^1.0.5",
     "reduxsauce": "^1.1.0",
     "seamless-immutable": "^7.1.4",
-    "set-value": "^2.0.1",
+    "set-value": "^4.0.1",
     "styled-components": "^4.3.2",
     "ws": "^7.1.2",
     "yup": "^0.27.0"
