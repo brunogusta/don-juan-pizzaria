@@ -22,7 +22,7 @@
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "mongodb": "^3.3.2",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "mongoose-paginate": "^5.0.3",
     "node-restful": "^0.2.5",
     "pm2": "^2.1.5",
